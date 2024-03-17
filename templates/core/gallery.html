@@ -1,0 +1,18 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+    
+<div class="wa_main_bn_wrap">
+    <h1>Gallery</h1>
+    <div class="image-gallery">
+        {% for image in images %}
+            <div class="gallery-item">
+                <img src="{{ image.image.url }}" alt="{{ image.title }}">
+                {% comment %} <p>{{ image.title }}</p> {% endcomment %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,87 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <!--//=========Login Page Start=========//-->
+        <section class="page_single">
+            <div class="special-style col-md-offset-0 pull-right">
+                <div class="bg-image" style="background-image:url('assets/img/backgrounds/bg3.jpg');"></div>
+            </div>
+            
+            <div class="container">
+                
+                <div class="row padTB100">
+                    <div class="clear"></div>
+                    <!--//==Login Section Start==//-->
+                    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ form.errors }}</strong>
+                            </div>
+                        {% endif %}
+                        <div class="centered-title">
+                            <h2>Register <span class="heading-border"></span></h2>
+                            <div class="clear"></div>
+                            <em>Be a part of the Eleganz family<br>Get updates and latest designs in real time</em>
+                        </div>
+                        <!--//==Form Start==//-->
+                        <form action="" method="POST" class="login-form">
+                            {% csrf_token %}
+                            
+                            <p class="form-row pd-right">
+                                <label for="username">Username<span class="required">*</span></label>
+                                <input type="text" name="username" id="username" class="form-controller">
+                            </p>
+                            <p class="form-row pd-right">
+                                <label for="first_name">First Name <span class="required">*</span></label>
+                                <input type="text" name="first_name" id="first_name" class="form-controller">
+                            </p>
+                            <p class="form-row pd-right">
+                                <label for="last_name">Last Name <span class="required">*</span></label>
+                                <input type="text" name="last_name" id="last_name" class="form-controller">
+                            </p>
+                            <p class="form-row pd-right">
+                                <label for="email">Email<span class="required">*</span></label>
+                                <input type="text" name="email" id="email" class="form-controller">
+                            </p>
+                            <p class="form-row">
+                                <label for="password1">Password<span class="required">*</span></label>
+                                <input type="password" name="password1" id="password1" class="form-controller">
+                            </p>
+                            <p class="form-row pd-right">
+                                <label for="password2">Confirm Password<span class="required">*</span></label>
+                                <input type="password" name="password2" id="password2" class="form-controller">
+                            </p>
+                            <p class="form-row pd-right">
+                                <label for="house_address">House Address<span class="required">*</span></label>
+                                <input type="text" name="house_address" id="house_address" class="form-controller">
+                            </p>
+                            <p class="form-row pd-right">
+                                <label for="phone">Phone Number<span class="required">*</span></label>
+                                <input type="text" name="phone" id="phone" class="form-controller">
+                            </p>
+                            <p class="form-row pd-right">
+                                <label for="city">City<span class="required">*</span></label>
+                                <input type="text" name="city" id="city" class="form-controller">
+                            </p>
+                            <p class="form-row">
+                                <input type="submit" value="Register" name="login" class="theme-button col-md-12 marB20">                           
+                            </p>
+                            <p class="lost_password">
+                                <a href="#">Lost your password?</a>
+                                <a href="#">Already have an account? Login</a>
+                            </p>
+                            
+                        </form>
+                        <!--//==Form End==//-->
+                    </div>
+                    <!--//==Login Section End==//-->
+                </div>
+            </div>
+        </section>
+        <!--//=========Login Page End=========//-->
+
+
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+        <!--//==Header End==//-->
+        <!--//=========Login Page Start=========//-->
+        <section class="page_single">
+            <div class="special-style col-md-offset-0 pull-right">
+                <div class="bg-image" style="background-image:url('assets/img/backgrounds/bg3.jpg');"></div>
+            </div>
+            <div class="container">
+                <div class="row padTB100">
+                    <div class="clear"></div>
+                    <!--//==Login Section Start==//-->
+                    <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-2 col-sm-offset-2 col-xs-offset-0">
+                        <div class="centered-title">
+                            <h2>Sign In <span class="heading-border"></span></h2>
+                            <div class="clear"></div>
+                            <em>Login to your account</em>
+                        </div>
+                        <!--//==Form Start==//-->
+                        <form action="#" method="POST" class="login-form">
+                            {% csrf_token %} 
+                            <p class="form-row pd-right">
+                                <label for="email">Email <span class="required">*</span></label>
+                                <input type="text" name="email" id="email" class="form-controller">
+                            </p>
+                            <p class="form-row pd-left">
+                                <label for="password">Password <span class="required">*</span></label>
+                                <input type="password" name="password" id="password" class="form-controller">
+                            </p>
+                        
+                            <p class="form-row">
+                                <input type="submit" value="Login" name="login" class="theme-button col-md-12 marB20">                           
+                            </p>
+                            <p class="lost_password">
+                                <a href="#">Lost your password?</a>
+                            </p>
+                        </form>
+                        <!--//==Form End==//-->
+                    </div>
+                    <!--//==Login Section End==//-->
+                </div>
+            </div>
+        </section>
+        <!--//=========Login Page End=========//-->
+        
+
+{% endblock content %}

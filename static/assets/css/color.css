@@ -1,0 +1,159 @@
+/*
+=============================
+Theme Background Color
+============================
+*/
+.wa-theme-bg,
+.theme-button:hover,
+.theme-button.wa-theme-bg,
+.wa-search-bar .default-btn,
+.wa-products-icon li a:hover,
+ul.top-ecommerce-icons li a sup,
+.top-ecommerce-icons .theme-button:hover,
+.shopping-cart .theme-button:hover,
+.special-style-dark-theme:before,
+.dark-theme-fun-fact:before,
+.wa-team-icon li a:hover,
+.social-style li a,
+.footer-style1 .wa-news-letter button,
+.newsletter .wa-news-letter button,
+.styled-pagination li a:hover,
+.styled-pagination li a.active,
+.search-form .button,
+.ui-slider-horizontal .ui-slider-handle,
+.social li a,
+.close-news-letter,
+.wa_main_bn_wrap .owl-buttons div:hover,
+.wa_main_bn_wrap .owl-theme .owl-controls .owl-page.active span,
+.owl-controls .owl-page.active span,
+.heading-border:before,
+.heading-border:after,
+.carousel-style-1 .owl-buttons div:hover,
+.carousel-style-2 .owl-buttons div:hover,
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.navbar-toggle,
+.news-letter-popup .default-btn:hover,
+#style-switcher h2 a,
+.tag-list a:hover,
+.contact-widget .fa,
+.close-news-letter:hover {
+    background-color: #fd3a2e;
+}
+
+/*
+=============================
+Theme Text/Icon Color
+============================
+*/
+.wa-theme-color,
+.wa-box-style2 i,
+.about_paypal,
+.shopping-cart .shopping-cart-items .item-price,
+ul.top-ecommerce-icons li a,
+.wa-box-style2 h4 a:hover,
+.page_single .ratings li a,
+.page_single .ratings li a:hover,
+.page_single .ratings li a:visited,
+.ratings li a,
+.ratings li a:hover,
+.ratings li a:visited,
+.wa-theme-design-block:hover h4,
+.blogs_main .read-more,
+.blogs_main .read-more:hover,
+.blogs_main .read-more:visited,
+.error-text a,
+.cssload-loading i,
+.product-checkout .market-info .showlogin, 
+.product-checkout .market-info .showcoupon,
+.product-checkout .market-info .showlogin:hover, 
+.product-checkout .market-info .showcoupon:hover,
+.product-checkout .market-info .showlogin:visited, 
+.product-checkout .market-info .showcoupon:visited,
+.error-text a:hover,
+.error-text a:visited,
+.page_single ul li a:hover,
+.rev-content .icon-list a,
+.rev-content .icon-list a:visited,
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover,
+.dropdown-menu>li>a:hover,
+.widget ul li a:hover,
+.home-middle-widget h4 a:hover,
+.order-table-cell a:hover,
+#top-bar ul li .mc-pro-list h4 a:hover,
+.lost_password a:hover,
+.lost_password a:visited:hover,
+.wa-banners-caption h3  {
+    color: #fd3a2e;
+}
+
+/*
+=============================
+Theme Border Color
+============================
+*/
+.wa-products-icon li a:hover,
+.wa-team-icon li a:hover,
+.footer-style1 .wa-news-letter button,
+.styled-pagination li a:hover,
+.styled-pagination li a.active,
+.search-form .button,
+.faqs-accordion h3.ui-state-default.ui-state-active,
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active,
+a.ui-button:active,
+.ui-button:active,
+.ui-button.ui-state-active:hover,
+.dropdown-menu,
+.spinner-layer {
+    border-color: #fd3a2e;
+}
+
+ul.top-ecommerce-icons li a sup:after{
+	border-top-color: #fd3a2e;
+}
+.loader {
+	border-left-color: #f5af02;
+    border-bottom-color: #fd3a2e;
+    border-top-color: #55ac37;
+    border-right-color: #55ac37;
+}
+
+/*
+==================================================
+Theme Background/Text/Icon Color With Media Query
+==================================================
+*/
+
+@media only screen and (max-width: 1024px) {
+    .carousel-style-1 .owl-buttons div,
+    .carousel-style-2 .owl-buttons div {
+        background-color: #fd3a2e;
+    }
+    .carousel-style-1 .owl-buttons div.owl-next:before,
+    .carousel-style-1 .owl-buttons div.owl-prev:before,
+    .carousel-style-2 .owl-buttons div.owl-next:before,
+    .carousel-style-2 .owl-buttons div.owl-prev:before {
+        color: #fff;
+    }
+}
+
+
+ul.top-ecommerce-icons li a.whishlistIcon sup{
+	background-color:#f5af02;
+}
+ul.top-ecommerce-icons li a.whishlistIcon sup:after{
+	border-top-color: #f5af02;
+}
+ul.top-ecommerce-icons li a.userIcon sup{
+	background-color:#55ac37;
+}
+ul.top-ecommerce-icons li a.userIcon sup:after{
+	border-top-color: #55ac37;
+}
