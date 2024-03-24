@@ -1,0 +1,291 @@
+<main class="main-content" id="cart-list">
+
+    <!--//==Page Header Start==//-->	  
+    <div class="page-header black-overlay">
+        <div class="container breadcrumb-section">
+            <div class="row pad-s15">
+                <div class="col-md-12">
+                    <h2>Cart Page</h2>
+                    <div class="clear"></div>
+                    <div class="breadcrumb-box">
+                        <ul class="breadcrumb">
+                            <li>
+                                <a href="index.html">Home</a>
+                            </li>
+                            <li class="active">Cart Page</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//==Page Header End==//-->
+    <!--//==Orders Section Start==//-->	  
+    <section class="cart-page padTB100">
+        <div class="container">
+            <div class="row wv-pads15">
+                <div class="col-md-12 col-sm-12">
+                    <!--//==Section Heading Start==//-->
+                    <div class="left-title">
+                        <h2>Your Orders <span class="heading-border"></span></h2>
+                        <div class="clear"></div>
+                    </div>
+                    <!--//==Section Heading End==//-->
+                    <div class="clear"></div>
+                    <!--//==Order Table titles Start==//-->
+                    <div class="hidden-xs">
+                        <div class="col-md-2 col-sm-2 grey-bg">
+                            <div class="order-data text-center pad15">
+                                <strong>Item</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 grey-bg">
+                            <div class="order-data text-center pad15">
+                                <strong>product</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 grey-bg">
+                            <div class="order-data  text-center pad15">
+                                <strong>price</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 grey-bg">
+                            <div class="order-data text-center pad15">
+                                <strong>Quantity</strong>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-2 col-sm-2 grey-bg">
+                            <div class="order-data text-center pad15">
+                                <strong>Total</strong>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 grey-bg">
+                            <div class="order-data text-center pad15">
+                                <strong>Status</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <!--//==Order Table titles End==//-->
+                    <!--//==Order Table Row ==//-->
+                    {% for product_id, item in cart_data.items %}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="order-row padTB20">
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="order-data order-table text-center padTB15">
+                                        <div class="order-table-cell">
+                                            <a href="product-detail.html"><img src="{{ item.image }}" alt=""></a>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="order-data order-table text-center">
+                                        <div class="order-table-cell order-text">           
+                                            <strong><a href="product-detail.html">{{ item.title }}</a></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="order-data order-table text-center">
+                                        <div class="order-table-cell order-text">
+                                            <strong>{{ item.price }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="order-data order-table text-center">
+                                        <div class="order-table-cell order-text">
+                                            <input type="number" class="qty product-qty-{{ product_id }}" value= {{ item.qty }} name="qty1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="order-data order-table text-center">
+                                        <div class="order-table-cell order-text">
+                                            <strong>Rs {% widthratio item.price 1 item.qty %}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <div class="order-data order-table text-center">
+                                        <div class="order-table-cell order-text">
+                                            <strong><a href=""><i class="fa fa-trash delete-product" data-product="{{ product_id }}" aria-hidden="true"></i></a></strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--//==Order Section End==//-->
+    <!--//== Order Price Section Start ==//-->
+    <section class="cart-page padB100">
+        <div class="container">
+            <div class="row">
+                
+                <!--//== Price Calculation Section Start ==//-->
+                <div class="col-xs-12 col-sm-6 col-md-7 wv_subtotal">
+                    <!--//==Section Heading Start==//-->
+                    <div class="left-title">
+                        <h2>Price Calculation<span class="heading-border"></span></h2>
+                        <div class="clear"></div>
+                    </div>
+                    <!--//==Section Heading End==//-->
+                    <div class="wv_shipping">
+                        <div class="wv_subtotaling">
+                            <div class="col-xs-6 col-md-6 wv_subtotal_left textL">
+                                <p>subtotal</p>
+                            </div>
+                            <div class="col-xs-6 col-md-6 wv_subtotal_right textR">
+                                <p>Rs {{ cart_total_amount|floatformat:2 }}</p>
+                            </div>
+                        </div>
+                        <div class="wv_subtotaling">
+                            <div class="col-xs-6 col-md-6 wv_subtotal_left textL">
+                                <p>Deduction</p>
+                            </div>
+                            <div class="col-xs-6 col-md-6 wv_subtotal_right textR">
+                                <p>-</p>
+                            </div>
+                        </div>
+                        <div class="wv_totaling">
+                            <div class="col-xs-6 col-md-6 wv_total_left textL">
+                                <p>Total</p>
+                            </div>
+                            <div class="col-xs-6 col-md-6 wv_total_right textR">
+                                <p>Rs {{ cart_total_amount|floatformat:2 }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6 wv_checkout wv_form_field">							   
+                                <button type="submit" class="theme-button col-xs-12 marT0">checkout</button>
+                            </div>
+                            <div class="col-xs-12 col-md-6 wv_checkout wv_form_field1 responsive_field1">
+                                <button type="submit" class="theme-button col-xs-12 marT0">continue ordeing </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--//== Price Calculation Section End ==//-->
+            </div>
+        </div>
+    </section>
+    <!--//== Order Price Section End ==//-->
+    <!--//=========instagram-gallery start=========//-->	
+    <div class="instagram-gallery page_single">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="insta-waterark">
+                    <h4>Instagram</h4>
+                </div>
+                <div id="insta-gallery" class="owl-carousel owl-theme carousel-style-2">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-1.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-2.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-3.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-4.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-5.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-6.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-7.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-8.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-1.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-2.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-3.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <figure class="dark-theme">
+                                <img src="{% static 'assets/img/all/wa-blog-4.jpg' %}" alt="Thumbnail">   
+                                <div class="hover-style"></div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//=========instagram-gallery end=========//-->
+
+
+</main>

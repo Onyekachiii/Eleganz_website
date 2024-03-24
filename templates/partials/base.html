@@ -65,29 +65,19 @@
                         <div class="col-md-3 col-sm-3 text-center">
                             <ul class="inline top-ecommerce-icons light-section-icon">
                                 <li>
-                                    <a href="#" class="whishlistIcon">
-                                    <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                    <sup>03</sup>
+                                    <!-- Mini Wishlist Icon -->
+                                    <a href="#" class="wishlistIcon">
+                                        <i class="fa fa-heart wishlist-items-count" aria-hidden="true"></i>
+                                        <sup>{{ wishlist.count }}</sup>
                                     </a>
-                                    <div class="shopping-cart">
+
+                                    {% comment %} <div class="shopping-cart">
                                         <a class="closeCart"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                                         <ul class="shopping-cart-items">
                                             <li class="clearfix">
-                                                <img src="{% static 'assets/img/product/cart1.jpg' %}" width="70" height="70" alt="cart item" />
+                                                <img src="assets/img/product/cart1.jpg" width="70" height="70" alt="cart item" />
                                                 <a href=""><span class="item-name">Product Title Here...</span></a>
                                                 <span class="item-price">$849.99</span>
-                                                <span class="item-quantity">x 01</span>
-                                            </li>
-                                            <li class="clearfix">
-                                                <img src="{% static 'assets/img/product/cart2.jpg' %}" width="70" height="70" alt="cart item" />
-                                                <a href=""><span class="item-name">Product Title Here...</span></a>
-                                                <span class="item-price">$1,249.99</span>
-                                                <span class="item-quantity">x 01</span>
-                                            </li>
-                                            <li class="clearfix">
-                                                <img src="{% static 'assets/img/product/cart3.jpg' %}" width="70" height="70" alt="cart item" />
-                                                <a href=""><span class="item-name">Mauris et pulvinar...</span></a>
-                                                <span class="item-price">$129.99</span>
                                                 <span class="item-quantity">x 01</span>
                                             </li>
                                         </ul>
@@ -99,8 +89,8 @@
                                         </div>
                                         <!--end shopping-cart-footer -->
                                         <a href="#" class="theme-button">Checkout</a>
-                                    </div>
-                                    <!--end shopping-cart -->
+                                    </div> {% endcomment %}
+
                                 </li>
                                 <li>
                                     <a href="#" class="userIcon">
@@ -124,42 +114,35 @@
                                     <!--end user-menu -->
                                 </li>
                                 <li>
-                                    <a href="#" class="cartIcon">
-                                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>											
-                                    <sup >03</sup>
+                                    <!-- Mini Cart Icon -->
+                                    <a href="{% url "core:cart" %}" class="cartIcon">
+                                        <i class="fa fa-shopping-basket cart-items-count" aria-hidden="true"></i>
+                                        <sup>{{ request.session.cart_data_obj|length }}</sup>
                                     </a>
-                                    <div class="shopping-cart">
+
+                                    {% comment %} <div class="shopping-cart">
                                         <a class="closeCart"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                        {% for product_id, item in cart_data.items %}
                                         <ul class="shopping-cart-items">
                                             <li class="clearfix">
-                                                <img src="{% static 'assets/img/product/cart1.jpg' %}" width="70" height="70" alt="cart item" />
-                                                <a href=""><span class="item-name">Product Title Here...</span></a>
-                                                <span class="item-price">$849.99</span>
+                                                <img src="{{ item.image }}" width="70" height="70" alt="cart item" />
+                                                <a href=""><span class="item-name">{{ item.title }}</span></a>
+                                                <span class="item-price">{{ item.price }}</span>
                                                 <span class="item-quantity">x 01</span>
                                             </li>
-                                            <li class="clearfix">
-                                                <img src="{% static 'assets/img/product/cart2.jpg' %}" width="70" height="70" alt="cart item" />
-                                                <a href=""><span class="item-name">Product Title Here...</span></a>
-                                                <span class="item-price">$1,249.99</span>
-                                                <span class="item-quantity">x 01</span>
-                                            </li>
-                                            <li class="clearfix">
-                                                <img src="{% static 'assets/img/product/cart3.jpg' %}" width="70" height="70" alt="cart item" />
-                                                <a href=""><span class="item-name">Mauris et pulvinar...</span></a>
-                                                <span class="item-price">$129.99</span>
-                                                <span class="item-quantity">x 01</span>
-                                            </li>
+                                            
                                         </ul>
                                         <div class="shopping-cart-footer">
                                             <div class="shopping-cart-total">
                                                 <span class="lighter-text pull-left">Total:</span>
-                                                <span class="main-color-text pull-right">$2,229.97</span>
+                                                <span class="main-color-text pull-right">Rs {% widthratio item.price 1 item.qty %}</span>
                                             </div>
                                         </div>
                                         <!--end shopping-cart-footer -->
                                         <a href="#" class="theme-button">Checkout</a>
-                                    </div>
-                                    <!--end shopping-cart -->
+                                        {% endfor %}
+                                    </div> {% endcomment %}
+
                                 </li>
                             </ul>
                         </div>
@@ -194,113 +177,7 @@
                                             <li>
                                                 <a href="{% url 'core:product-list' %}">Shop<span class="caret menu-arrow"></span><span class="sub-arrow">...</span></a>
                                             </li>
-                                            <li class="mega-menu">
-                                                <a href="#" class="has-submenu">Categories <span class="caret menu-arrow"></span><span class="sub-arrow">...</span></a>
-                                                <ul class="dropdown-menu wv_menu_color sm-nowrap">
-                                                    <li>
-                                                        <!-- Home Mage Menu grids Begins -->
-                                                        <div class="row">
-                                                            <!-- Home Variation 1 Block -->
-                                                            <div class="col-sm-3">
-                                                                <!-- Title -->
-                                                                <h6 class="title">E-Commerce</h6>
-                                                                <!-- Links -->
-                                                                <div class="page-links">
-                                                                    <div>
-                                                                        <a href="collection-grid-sidebar.html">Collection</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-sidebar.html">dresses</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-sidebar.html">red</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-sidebar.html">brandeds</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-sidebar.html">summer</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Home Variation 1 Block -->
-                                                            <!-- Home Variation 2 Block -->
-                                                            <div class="col-sm-3">
-                                                                <!-- Title -->
-                                                                <h6 class="title">Html</h6>
-                                                                <!-- Links -->
-                                                                <div class="page-links">
-                                                                    <div>
-                                                                        <a href="collection-grid-fullwidth.html">Top Collection</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-fullwidth.html">brandeds</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-fullwidth.html">summer</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-fullwidth.html">responsive</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-grid-fullwidth.html">Sink</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- Home Variation 2 Block -->
-                                                            <!-- One Page variation 1 -->
-                                                            <div class="col-sm-3">
-                                                                <!-- Title -->
-                                                                <h6 class="title">template</h6>
-                                                                <!-- Links -->
-                                                                <div class="page-links">
-                                                                    <div>
-                                                                        <a href="collection-list-sidebar.html">Bath Tub</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-list-sidebar.html">Old Style</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-list-sidebar.html">Collection</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-list-sidebar.html">brands</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-list-sidebar.html">red</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- One Page variation 1 -->
-                                                            <!-- One Page variation 2 -->
-                                                            <div class="col-sm-3">
-                                                                <!-- Title -->
-                                                                <h6 class="title">Brand</h6>
-                                                                <!-- Links -->
-                                                                <div class="page-links">
-                                                                    <div>
-                                                                        <a href="collection-list-fullwidth.html">Quia dolori</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-list-fullwidth.html">Dimile homini</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-list-fullwidth.html">Pulvinar risus</a>
-                                                                    </div>
-                                                                    <div>
-                                                                        <a href="collection-list-fullwidth.html">Tincidunt </a>
-                                                                    </div>
-                                                                    <div>																		
-                                                                        <a href="collection-list-fullwidth.html">Asoori Drrm</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- One Page variation 2 -->
-                                                        </div>
-                                                        <!-- Ends Home Mage Menu Block -->
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                            
                                             <li>
                                                 <a href="#">Pages <span class="caret menu-arrow"></span><span class="sub-arrow">...</span></a>
                                                 <ul class="dropdown-menu">
@@ -311,7 +188,7 @@
                                                     <li><a href="{% url 'userauths:sign-in' %}">Login</a></li>
                                                     <li><a href="{% url 'userauths:sign-up' %}">Register</a></li>
                                                     {% endif %}
-                                                    <li><a href="default-page.html">Default Page</a></li>
+                                                
                                                 </ul>
                                             </li>
                                             <li>
@@ -328,41 +205,20 @@
                                     <div class="hidden-lg hidden-md hidden-sm">
                                         <ul class="inline top-ecommerce-icons light-section-icon">
                                             <li>
-                                                <a href="#" class="whishlistIcon">
-                                                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-                                                <sup>03</sup>
+                                                <!-- Mini Wishlist Icon -->
+                                                <a href="#" class="wishlistIcon">
+                                                    <i class="fa fa-heart wishlist-items-count" aria-hidden="true"></i>
+                                                    <sup>{{ wishlist.count }}</sup>
                                                 </a>
-                                                <div class="shopping-cart">
-                                                    <a class="closeCart"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
-                                                    <ul class="shopping-cart-items">
-                                                        <li class="clearfix">
-                                                            <img src="{% static 'assets/img/product/cart1.jpg' %}" width="70" height="70" alt="cart item" />
-                                                            <a href=""><span class="item-name">Product Title Here...</span></a>
-                                                            <span class="item-price">$849.99</span>
-                                                            <span class="item-quantity">x 01</span>
-                                                        </li>
-                                                        <li class="clearfix">
-                                                            <img src="{% static 'assets/img/product/cart2.jpg' %}" width="70" height="70" alt="cart item" />
-                                                            <a href=""><span class="item-name">Product Title Here...</span></a>
-                                                            <span class="item-price">$1,249.99</span>
-                                                            <span class="item-quantity">x 01</span>
-                                                        </li>
-                                                        <li class="clearfix">
-                                                            <img src="{% static 'assets/img/product/cart3.jpg' %}" width="70" height="70" alt="cart item" />
-                                                            <a href=""><span class="item-name">Mauris et pulvinar...</span></a>
-                                                            <span class="item-price">$129.99</span>
-                                                            <span class="item-quantity">x 01</span>
-                                                        </li>
+
+                                                {% comment %} <!-- Mini Wishlist Popup -->
+                                                <div class="mini-wishlist">
+                                                    <!-- Mini Wishlist Content -->
+                                                    <ul class="mini-wishlist-items">
+                                                        <!-- Mini Wishlist Items will be populated here -->
                                                     </ul>
-                                                    <div class="shopping-cart-footer">
-                                                        <div class="shopping-cart-total">
-                                                            <span class="lighter-text pull-left">Total:</span>
-                                                            <span class="main-color-text pull-right">$2,229.97</span>
-                                                        </div>
-                                                    </div>
-                                                    <!--end shopping-cart-footer -->
-                                                    <a href="#" class="theme-button">Checkout</a>
-                                                </div>
+                                                </div> {% endcomment %}
+
                                                 <!--end shopping-cart -->
                                             </li>
                                             <li>
@@ -387,42 +243,32 @@
                                                 <!--end user-menu -->
                                             </li>
                                             <li>
-                                                <a href="#" class="cartIcon">
-                                                <i class="fa fa-shopping-basket" aria-hidden="true"></i>											
-                                                <sup >03</sup>
+                                                <!-- Mini Cart Icon -->
+                                                <a href="{% url "core:cart" %}" class="cartIcon">
+                                                    <i class="fa fa-shopping-basket cart-items-count" aria-hidden="true"></i>
+                                                    <sup>{{ request.session.cart_data_obj|length }}</sup>
                                                 </a>
+
+                                                {% comment %} <!-- Mini Cart Popup -->
                                                 <div class="shopping-cart">
-                                                    <a class="closeCart"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                                                    <!-- Mini Cart Content -->
                                                     <ul class="shopping-cart-items">
-                                                        <li class="clearfix">
-                                                            <img src="{% static 'assets/img/product/cart1.jpg' %}" width="70" height="70" alt="cart item" />
-                                                            <a href=""><span class="item-name">Product Title Here...</span></a>
-                                                            <span class="item-price">$849.99</span>
-                                                            <span class="item-quantity">x 01</span>
-                                                        </li>
-                                                        <li class="clearfix">
-                                                            <img src="{% static 'assets/img/product/cart2.jpg' %}" width="70" height="70" alt="cart item" />
-                                                            <a href=""><span class="item-name">Product Title Here...</span></a>
-                                                            <span class="item-price">$1,249.99</span>
-                                                            <span class="item-quantity">x 01</span>
-                                                        </li>
-                                                        <li class="clearfix">
-                                                            <img src="{% static 'assets/img/product/cart3.jpg' %}" width="70" height="70" alt="cart item" />
-                                                            <a href=""><span class="item-name">Mauris et pulvinar...</span></a>
-                                                            <span class="item-price">$129.99</span>
-                                                            <span class="item-quantity">x 01</span>
-                                                        </li>
+                                                        <!-- Mini Cart Items will be populated here -->
                                                     </ul>
+
+                                                    <!-- Mini Cart Footer -->
                                                     <div class="shopping-cart-footer">
                                                         <div class="shopping-cart-total">
                                                             <span class="lighter-text pull-left">Total:</span>
-                                                            <span class="main-color-text pull-right">$2,229.97</span>
+                                                            <span class="main-color-text pull-right">$0.00</span> <!-- Total amount will be updated here -->
                                                         </div>
                                                     </div>
-                                                    <!--end shopping-cart-footer -->
+    
+                                                    <!-- Checkout Button -->
                                                     <a href="#" class="theme-button">Checkout</a>
                                                 </div>
-                                                <!--end shopping-cart -->
+
+                                                <!--end shopping-cart --> {% endcomment %}
                                             </li>
                                         </ul>
                                     </div>

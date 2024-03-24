@@ -91,7 +91,7 @@
                                         <div class="row">
                                             <div class="wa-products-caption wa-list-caption text-left">
                                                 <h2>
-                                                    <a href="">{{ fabric.title }}</a>
+                                                    <a href="{% url 'core:product-detail' product_type='fabric' pid=fabric.pid %}">{{ fabric.title }}</a>
                                                 </h2>
                                                 <div class="clear"></div>
                                                 <ul class="ratings">
@@ -103,16 +103,25 @@
                                                 </ul>
                                                 <div class="clear"></div>
                                                 <span class="price">
-                                                <del>Rs {{ fabric.old_price }}</del>
-                                                Rs {{ fabric.price }}
+                                                {% comment %} <del>Rs {{ fabric.old_price }}</del> {% endcomment %}
+                                                    <b>Rs<a class="current-product-price-{{ p.id }}" id="current-product-price-{{ p.id }}"> {{ fabric.price }}</a></b>
                                                 </span>	
                                                 <p>
                                                     {{ fabric.description }}
                                                 </p>
                                                 <ul class="wa-products-icon">
-                                                    <li><a href="" title="Add to wishlist"><i class="fa fa-heart-o"></i></a></li>
+                                                    <li><a role="button" title="Add to wishlist" class="add-to-wishlist" data-product-item="{{fabric.id}}"><i class="fa fa-heart-o"></i></a></li>
                                                     <li><a href="" class="quickview-box-btn" data-product-id="{{ fabric.id }}" title="Quick View"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="" title="Add to cart"><i class="fa fa-shopping-basket"></i></a></li>
+                                                    <li>
+                                                        <a class="add-to-cart-btn" title="Add to cart"  data-index="{{ p.id }}">
+                                                            <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                                            <input type="hidden" class="product-pid-{{p.id}}" value="{{fabric.pid}}">
+                                                            <input type="hidden" class="product-image-{{p.id}}" value="{{fabric.image.url}}">
+                                                            <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                                            <input type="hidden" class="product-title-{{p.id}}" value="{{ fabric.title }}">
+                                                            <i class="fa fa-shopping-basket"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -155,7 +164,7 @@
                                         <div class="row">
                                             <div class="wa-products-caption wa-list-caption text-left">
                                                 <h2>
-                                                    <a href="">{{ accessory.title }}</a>
+                                                    <a href="{% url 'core:product-detail' product_type='accessory' pid=accessory.pid %}">{{ accessory.title }}</a>
                                                 </h2>
                                                 <div class="clear"></div>
                                                 <ul class="ratings">
@@ -167,16 +176,25 @@
                                                 </ul>
                                                 <div class="clear"></div>
                                                 <span class="price">
-                                                <del>Rs {{ accessory.old_price }}</del>
-                                                Rs {{ accessory.price }}
+                                                {% comment %} <del>Rs {{ accessory.old_price }}</del> {% endcomment %}
+                                                    <b>Rs<a class="current-product-price-{{ p.id }}" id="current-product-price-{{ p.id }}"> {{ accessory.price }}</a></b>
                                                 </span>	
                                                 <p>
                                                     {{ accessory.description }}
                                                 </p>
                                                 <ul class="wa-products-icon">
-                                                    <li><a href="" title="Add to wishlist"><i class="fa fa-heart-o"></i></a></li>
+                                                    <li><a role="button" title="Add to wishlist" class="add-to-wishlist" data-product-item="{{p.id}}"><i class="fa fa-heart-o"></i></a></li>
                                                     <li><a href="" class="quickview-box-btn" data-product-id="{{ accessory.id }}" title="Quick View"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="" title="Add to cart"><i class="fa fa-shopping-basket"></i></a></li>
+                                                    <li>
+                                                        <a class="add-to-cart-btn" title="Add to cart"  data-index="{{ p.id }}">
+                                                            <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                                            <input type="hidden" class="product-pid-{{p.id}}" value="{{accessory.pid}}">
+                                                            <input type="hidden" class="product-image-{{p.id}}" value="{{accessory.image.url}}">
+                                                            <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                                            <input type="hidden" class="product-title-{{p.id}}" value="{{ accessory.title }}">
+                                                            <i class="fa fa-shopping-basket"></i>
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>

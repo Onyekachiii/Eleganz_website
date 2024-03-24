@@ -13,7 +13,7 @@
                         <div class="breadcrumb-box">
                             <ul class="breadcrumb">
                                 <li>
-                                    <a href="index.html">Home</a>
+                                    <a href="{% url 'core:index' %}">Home</a>
                                 </li>
                                 <li class="active">product Detail</li>
                             </ul>
@@ -32,14 +32,12 @@
                             <!--Thumbnail Column-->
                             <div class="carousel-column col-lg-6 col-md-6 col-sm-5 col-xs-12">
                                 <div class="wa-product-main-image marB20">
-                                    <a href="assets/img/product/product-detail.jpg" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{% static 'assets/img/product/product-detail.jpg' %}" alt=""> </a>
+                                    <a href="" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{{ p.image.url }}" alt=""> </a>
                                 </div>
                                 <div id="wa-slide-image" class="owl-carousel  wa-slide-image carousel-style-1">
-                                    <a href="assets/img/product/product-detail-1.jpg" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{% static 'assets/img/product/product-detail-1.jpg' %}" alt=""> </a>  
-                                    <a href="assets/img/product/product-detail-2.jpg" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{% static 'assets/img/product/product-detail-2.jpg' %}" alt=""> </a>
-                                    <a href="assets/img/product/product-detail-3.jpg" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{% static 'assets/img/product/product-detail-3.jpg' %}" alt=""> </a>
-                                    <a href="assets/img/product/product-detail-4.jpg" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{% static 'assets/img/product/product-detail-4.jpg' %}" alt=""> </a>
-                                    <a href="assets/img/product/product-detail-5.jpg" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{% static 'assets/img/product/product-detail-5.jpg' %}" alt=""> </a>  
+                                    {% for product_image in product_images %}
+                                    <a href="" class="fancybox" data-fancybox-group="group" title="Product Title Here"> <img src="{{ product_image.images.url }}" alt=""> </a>  
+                                    {% endfor %} 
                                 </div>
                             </div>
                             <!--Content Column-->
@@ -47,7 +45,7 @@
                                 <div class="outer wow fadeInRight">
                                     <div class="title-box">
                                         <div class="inner marB30">
-                                            <h2 class="marB10">Product Title Here.</h2>
+                                            <h2 class="marB10">{{ p.title }}</h2>
                                             <p class="availability in-stock"><strong>Availability:</strong> <span>In stock</span></p>
                                             <ul class="ratings">
                                                 <li><a href=""><i class="fa fa-star"></i></a></li>
@@ -57,14 +55,12 @@
                                                 <li><a href=""><i class="fa fa-star-half-o"></i></a></li>
                                             </ul>
                                             <span class="price marB10">								
-                                            $100
-                                            <del>$200</del>
+                                                <b>Rs<a class="current-product-price-{{ p.id }}" id="current-product-price-{{ p.id }}"> {{ fabric.price }}</a></b>
+                                            {% comment %} <del>Rs {{ p.old_price }}</del> {% endcomment %}
                                             <span class="clear"></span>
                                             </span>
-                                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies .</p>
-                                            <p>It has survived not only five centuries, but also the leap into ele ctronic typesetting, remaining essentially un changed The industry's standard dummy text ever 
-                                                since.
-                                            </p>
+                                            <p>{{ p.description|truncatechars:150|safe }}</p>
+                                            
                                         </div>
                                         <div class="clear"></div>
                                         <!--Options-->
@@ -77,30 +73,10 @@
                                                         <input type="number" name="qty" value="2" max="10" min="0" placeholder="">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-5 col-sm-4 padL0">
-                                                    <div class="form-group">
-                                                        <label><strong>Color :</strong> </label>
-                                                        <div class="clear"></div>
-                                                        <select name="sel-color">
-                                                            <option>Select Color</option>
-                                                            <option>Red</option>
-                                                            <option>Green</option>
-                                                            <option>Yellow</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5 col-sm-4 padL0">
-                                                    <div class="form-group">
-                                                        <label><strong>Size :</strong> </label>
-                                                        <div class="clear"></div>
-                                                        <select name="sel-color">
-                                                            <option>Select Size</option>
-                                                            <option>Small</option>
-                                                            <option>Medium</option>
-                                                            <option>Large</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                
+                                                
+                                                
+                                                
                                                 <div class="form-group col-sm-12 padL0 quantity">
                                                     <label><strong>Tags</strong></label>
                                                     <div class="tag-list">
@@ -116,10 +92,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--Add-->
+                                    <!---->
                                     <div class="add-options">
-                                        <button type="button" class="theme-button">Order Now</button>
-                                        <button type="button" class="theme-button"><span class="fa fa-heart"></span></button>
+                                        <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                        <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                        <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                        <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                        <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                        <button type="button" class="theme-button add-to-cart-btn" id="addToCart" data-index="{{ p.id }}">Add to cart</button>
+                                        <button type="button" class="theme-button add-to-wishlist" data-product-item="{{p.id}}" title="Wishlist"><span class="fa fa-heart"></span></button>
                                     </div>
                                 </div>
                             </div>
@@ -141,8 +122,8 @@
                                         <h2>Product Discription <span class="heading-border"></span></h2>
                                         <div class="clear"></div>
                                     </div>
-                                    <p>Nam quis magna in dui fringilla sodales et at ante. Nulla condimentum sed magna ut Maecenas lacus ante, mattis sed euismod sed, iaculis sed libInteger tortor tellus, varius ac maximus at, vehicula nec purus. Ut at posuere sapien, ut molestie nisi. Donec mauris justo, Praesent sed interdum arcu, eget interdum elit. Proin quis sapien a ex ultrices condimentum eu vel neque. Donec maximus, erat eu mattis feugiat, nisl tellus vehicula lorem, ut ullamcorper ex risus eu magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                    <p>Condimentum sed magna ut Maecenas lacus ante, mattis sed euismod sed, iaculis sed libInteger tortor tellus, varius ac maximus at, vehicula nec purus. Ut at posuere sapien, ut molestie nisi. Donec mauris justo, Praesent sed interdum arcu, eget interdum elit. Proin quis sapien a ex ultrices condimentum eu vel neque. Donec maximus, erat eu mattis feugiat, nisl tellus vehicula lorem, ut ullamcorper ex risus eu magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur luctus felis vitae ante gravida, quis imperdiet mauris convallis. </p>
+                                    <p>{{ p.description }}</p>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -264,8 +245,7 @@
                         <div class="centered-title">
                             <h2>Related Product <span class="heading-border"></span></h2>
                             <div class="clear"></div>
-                            <em>dNam ac egestas est. Mauris et pulvinar risus, at tincidunt lorem. Maecenas<br>
-                            tristique sit amet odio sit amet aliquet.</em>
+                            <em></em>
                         </div>
                     </div>
                     <!--//==Section Heading End==//-->

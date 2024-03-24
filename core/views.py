@@ -1,3 +1,4 @@
+from __future__ import print_function
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.template.loader import render_to_string
@@ -10,6 +11,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 
@@ -76,23 +78,23 @@ def product_detail_view(request, product_type, pid):
     else:
         # Handle invalid product type
         return HttpResponseNotFound("Invalid product type")
-    
-    #To get all reviews
+
+    # To get all reviews
     reviews = ProductReview.objects.filter(product=product).order_by("-date")
-    
-    #Product review form
+
+    # Product review form
     review_form = ProductReviewForm()
-    
+
     make_review = True
-    
+
     if request.user.is_authenticated:
         user_review_count = ProductReview.objects.filter(user=request.user, product=product).count()
-        
+
         if user_review_count == 1:
             make_review = False
-    
+
     product_images = product.product_images.all()
-    
+
     context = {
         "p": product,
         "make_review": make_review,
@@ -100,6 +102,7 @@ def product_detail_view(request, product_type, pid):
         "product_images": product_images,
         "reviews": reviews,
         "product": product,
+        "product_id": pid,  # Pass product ID to the template
     }
     return render(request, 'core/product-detail.html', context)
 
@@ -142,6 +145,7 @@ def get_product_data(request):
 
 
 # To add to cart
+@login_required
 def add_to_cart(request):
     cart_product = {}
     cart_product[str(request.GET['id'])] = {
@@ -171,17 +175,29 @@ def add_to_cart(request):
 
 
 # To list products in cart
+def clean_price_string(price_string):
+    return ''.join(char for char in price_string if char.isdigit() or char == '.')
+
 @login_required
 def cart_view(request):
     cart_total_amount = 0
+
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])    
-        return render(request, 'core/cart.html', {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+            if item['qty'] and item['price']:
+                # Clean the price string before conversion
+                cleaned_price_string = clean_price_string(item['price'])
+
+                try:
+                    cart_total_amount += int(item['qty']) * float(cleaned_price_string)
+                except ValueError:
+                    messages.error(request, f"Invalid price format for item {p_id}. Please check your cart.")
+                    return redirect('core:index')
+
+        return render(request, 'core/cart.html', {"cart_data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     else:
         messages.warning(request, "Your cart is empty")
         return redirect('core:index')
-    
     
 # To delete item from cart
 @login_required
@@ -248,6 +264,7 @@ def add_to_wishlist(request):
     
     return JsonResponse(context)
 
+
 # To view wishlist
 @login_required
 def wishlist_view(request):
@@ -262,20 +279,26 @@ def wishlist_view(request):
 # To remove from wishlist
 @login_required
 def remove_from_wishlist(request):
-    pid = request.GET['id']
-    wishlist = WishList.objects.filter(user=request.user)
-    product = WishList.objects.get(id=pid)
-    product.delete()
+    pid = request.GET.get('id')
+    if pid:
+        product = get_object_or_404(WishList, id=pid)
+        wishlist = WishList.objects.filter(user=request.user)
+        product.delete()
     
-    context = {
-        "bool" : True,
-        "w": wishlist,
-    }
-    wishlist_json = serializers.serialize('json', wishlist)
-    data = render_to_string("core/async/wishlist-list.html", context)
-    return JsonResponse({"data": data, "w": wishlist_json})
+        context = {
+            "bool" : True,
+            "w": wishlist,
+        }
+        wishlist_json = serializers.serialize('json', wishlist)
+        data = render_to_string("core/async/wishlist-list.html", context)
+        return JsonResponse({"data": data, "w": wishlist_json})
+    else:
+        return JsonResponse({"error": "Invalid parameters"}, status=400)
     
 
 def gallery(request):
     images = GalleryImage.objects.all()
     return render(request, 'core/gallery.html', {'images': images})
+
+
+

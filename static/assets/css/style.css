@@ -4381,3 +4381,131 @@ h1 {
 .footer-style1 .social-style2 a {
     color: #fff;
 }
+
+/*-------------------------------------------------
+  User account Page CSS
+---------------------------------------------------*/
+.ec-user-account .ec-vendor-block-img {
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 30px;
+  }
+  .ec-user-account .ec-vendor-block-img p {
+    margin-bottom: 5px;
+  }
+  .ec-user-account .ec-vendor-block-img p span {
+    font-weight: 700;
+  }
+  .ec-user-account .ec-vendor-block-bg {
+    width: 100%;
+    height: 200px;
+    background-image: url(../images/banner/8.jpg) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: relative;
+  }
+  .ec-user-account .border-none {
+    border: none;
+  }
+  .ec-user-account .border-color {
+    border-bottom: none;
+  }
+  .ec-user-account tfoot tr td {
+    color: #777;
+  }
+  .ec-user-account tfoot tr td span {
+    padding: 15px 0 0 0 !important;
+    display: block;
+  }
+  .ec-user-account .page-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .ec-user-account .page-header .page-tools {
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+  }
+  .ec-user-account .page-header img {
+    width: 130px;
+  }
+  .ec-user-account .ec-vendor-block-detail {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  .ec-user-account .brc-default-l1 {
+    border-color: #eeeeee;
+  }
+  .ec-user-account .ml-n1 {
+    margin-left: -0.25rem;
+  }
+  .ec-user-account .mx-n1 {
+    margin-left: -0.25rem;
+    margin-right: -0.25rem;
+  }
+  .ec-user-account .mr-n1 {
+    margin-right: -0.25rem;
+  }
+  .ec-user-account .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+  .ec-user-account .my-4 {
+    margin-bottom: 1.5rem;
+  }
+  .ec-user-account hr {
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid #eeeeee;
+  }
+  .ec-user-account .text-grey-m2 {
+    color: #777;
+  }
+  .ec-user-account .font-bolder {
+    font-weight: 600;
+  }
+  .ec-user-account .text-600 {
+    font-weight: 700;
+  }
+  .ec-user-account .pb-25 {
+    padding-bottom: 0.75rem;
+  }
+  .ec-user-account .py-25 {
+    padding-bottom: 0.75rem;
+    padding-top: 0.75rem;
+  }
+  .ec-user-account .pt-25 {
+    padding-top: 0.75rem;
+  }
+  .ec-user-account .w-2 {
+    width: 1rem;
+  }
+  .ec-user-account .note-text-color {
+    color: #999;
+  }
+  .ec-user-account .padding-b-0 {
+    padding-bottom: 0 !important;
+  }
+  
+  .ec-invoice-2 table {
+    margin-bottom: 30px;
+  }
+  .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table thead tr {
+    background-color: #2d313e;
+  }
+  .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table thead tr th {
+    color: #fff;
+  }
+  .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tbody tr, .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tfoot tr {
+    background-color: #f7f7f7;
+  }
+  .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tbody tr:nth-child(even), .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tfoot tr:nth-child(even) {
+    background-color: #f3f3f3;
+  }
+  .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tbody tr td span, .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tbody tr th span, .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tfoot tr td span, .ec-invoice-2 .ec-vendor-dashboard-card .ec-vendor-card-body .ec-vendor-card-table tfoot tr th span {
+    padding: 10px 0 !important;
+  }
