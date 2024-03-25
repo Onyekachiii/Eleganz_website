@@ -6,7 +6,7 @@
         
         <!--//=======Main Slider=======//--> 	 			
         <div class="wa_main_bn_wrap">
-            <div id="home1-main-slider" class="owl-carousel owl-theme">
+            <div id="home1-main-slider" class="  ">
                 <div class="item">
                     <figure>
                         <img src="{% static 'assets/img/slider/11.png' %}" class="hidden-xs hidden-sm " alt=""/>
@@ -87,50 +87,6 @@
         </div>
         <!--//=======Main Slider End=======//--> 
         
-        <!--//=========Categories Section Start=========//-->
-        <div class="page_single banner-ads marB0">
-            <div class="container">
-                <div class="row">
-                    <!--//==Section Heading Start==//-->
-                    <div class="col-md-12">
-                        <div class="centered-title">
-                            <h2>Categories <span class="heading-border"></span></h2>
-                            <div class="clear"></div>
-                            <em>dNam ac egestas est. Mauris et pulvinar risus, at tincidunt lorem. Maecenas<br>
-                            tristique sit amet odio sit amet aliquet.</em>
-                        </div>
-                    </div>
-                    <!--//==Section Heading End==//-->
-                </div>
-                <div class="row">
-                    {% for c in categories %}
-                    <div class="col-md-4 col-sm-4">
-                        <figure class="banners-border">
-                            <a href="collection-grid-fullwidth.html"><img src="{{c.image.url}}" alt="Thumbnail"></a>						  
-                        </figure>
-                        <div class="wa-products-caption">
-                            <span class="centered-title">
-                                <h2><a href="product-detail.html">{{ c.title }}</a></h2>
-                            </span>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    {% comment %} <div class="col-md-4 col-sm-4">
-                        <figure class="banners-border">
-                            <a href="collection-grid-fullwidth.html"><img src="{% static 'assets/img/banners/4.jpg' %}" alt="Thumbnail"></a>						  
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-4">
-                        <figure class="banners-border">
-                            <a href="collection-grid-fullwidth.html"><img src="{% static 'assets/img/banners/5.jpg' %}" alt="Thumbnail"></a>						  
-                        </figure>
-                    </div> {% endcomment %}
-                </div>
-            </div>
-        </div>
-        <!--//=========Categories Section End=========//-->
-
-        
 
         <!--//=============product Start============//-->
         <div class="wa-products-main padTB100">
@@ -139,68 +95,72 @@
                     <!--//==Section Heading Start==//-->
                     <div class="col-md-12">
                         <div class="centered-title">
-                            <h2>Latest product <span class="heading-border"></span></h2>
+                            <h2>Latest Fabrics <span class="heading-border"></span></h2>
                             <div class="clear"></div>
-                            <em>dNam ac egestas est. Mauris et pulvinar risus, at tincidunt lorem. Maecenas<br>
-                            tristique sit amet odio sit amet aliquet.</em>
+                            <em>Take a look at some of our best fabrics and materials to use for your classic wears</em>
                         </div>
                     </div>
                     <!--//==Section Heading End==//-->
                 </div>
                 <div class="row" id="MixItUp1">
                     <!--//==product Item==//-->
-                    {% for fabric in fabrics %}
-                    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-0 mix" >
-                        <div class="wa-products">
-                            <div class="wa-products-thumbnail wa-item">
-                                <img src="{{ fabric.image.url }}" alt="">						
-                                <div class="caption">
-                                    <div class="caption-text">
-                                        <ul class="wa-products-icon">
-                                            <li><a class="add-to-wishlist" title="Add to wishlist"  data-product-item="{{ fabric.id }}"><i class="fa fa-heart-o"></i></a></li>
-                                            <li><a href="" class="quickview-box-btn" data-product-id="{{ fabric.id }}" title="Quick View"><i class="fa fa-eye"></i></a></li>
-                                            <li>
-                                                <a class="add-to-cart-btn" title="Add to cart"  data-index="{{ p.id }}">
-                                                    <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
-                                                    <input type="hidden" class="product-pid-{{p.id}}" value="{{fabric.pid}}">
-                                                    <input type="hidden" class="product-image-{{p.id}}" value="{{fabric.image.url}}">
-                                                    <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
-                                                    <input type="hidden" class="product-title-{{p.id}}" value="{{ fabric.title }}">
-                                                    <i class="fa fa-shopping-basket"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
+
+                {% for product in products %}
+                    {% if product.product_type == 'fabric' %}
+                        <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-0 mix" >
+                            <div class="wa-products">
+                                <div class="wa-products-thumbnail wa-item">
+                                    <img src="{{ product.image.url }}" alt="">						
+                                        <div class="caption">
+                                        <div class="caption-text">
+                                            <ul class="wa-products-icon">
+                                                <li><a class="add-to-wishlist" title="Add to wishlist"  data-product-item="{{ product.id }}"><i class="fa fa-heart-o"></i></a></li>
+                                                <li><a href="" class="quickview-box-btn" data-product-id="{{ product.id }}" title="Quick View"><i class="fa fa-eye"></i></a></li>
+                                                <li>
+                                                    <a class="add-to-cart-btn" title="Add to cart"  data-index="{{ product.id }}">
+                                                        <input type="hidden" class="product-id-{{product.id}}" value="{{ product.id }}">
+                                                        <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{product.id}}">
+                                                        <input type="hidden" class="product-pid-{{product.id}}" value="{{product.pid}}">
+                                                        <input type="hidden" class="product-image-{{product.id}}" value="{{product.image.url}}">
+                                                        <input type="hidden" class="product-title-{{product.id}}" value="{{ product.title }}">
+                                                        <i class="fa fa-shopping-basket"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         
-                                        <div class="clear"></div>
+                                            <div class="clear"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="wa-products-caption">
-                                <h2><a href="{% url 'core:product-detail' product_type='fabric' pid=fabric.pid %}">{{ fabric.title }}</a></h2>
+                                <div class="wa-products-caption">
+                                    <h2><a href="{% url 'core:product-detail' product_type='fabric' pid=product.pid %}">{{ product.title }}</a></h2>
 
-                                <div class="clear"></div>
-                                <ul class="ratings">
-                                    <li><a href=""><i class="fa fa-star"></i></a></li>
-                                    <li><a href=""><i class="fa fa-star"></i></a></li>
-                                    <li><a href=""><i class="fa fa-star"></i></a></li>
-                                    <li><a href=""><i class="fa fa-star"></i></a></li>
-                                    <li><a href=""><i class="fa fa-star-half-o"></i></a></li>
-                                </ul>
-                                <div class="clear"></div>
-                                <span class="price">
-                                {% comment %} <del>Rs {{ fabric.old_price }}</del> {% endcomment %}
-                                    <b>Rs<a class="current-product-price-{{ p.id }}" id="current-product-price-{{ p.id }}"> {{ fabric.price }}</a></b>
-                                </span>
+                                    <div class="clear"></div>
+                                    <ul class="ratings">
+                                        <li><a href=""><i class="fa fa-star"></i></a></li>
+                                        <li><a href=""><i class="fa fa-star"></i></a></li>
+                                        <li><a href=""><i class="fa fa-star"></i></a></li>
+                                        <li><a href=""><i class="fa fa-star"></i></a></li>
+                                        <li><a href=""><i class="fa fa-star-half-o"></i></a></li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                    <span class="price">
+                                        <b>Rs<a class="current-product-price-{{ product.id }}" id="current-product-price-{{ product.id }}"> {{ product.price }}</a></b>
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    {% endfor %}
+                    {% endif %}
+                {% endfor %}
                     
                     <div class="clear"></div>
                 </div>
             </div>
         </div>
         <!--//=============product End============//-->	
+
+        
+
         <!--//=======Banner Section Start=======//--> 
         <section class="banners-section">
             <div class="container-fluid">
@@ -254,51 +214,16 @@
         </section>
         <!--//=======Banner Section End=======//-->
 
-        <!--//=========Gallery Start=========//-->
-        <section class="wa-products-main padT100 padB80">
-            <div class="container">
-                <div class="row">
-                    <!--//==Section Heading Start==//-->
-                    <div class="col-md-12">
-                        <div class="centered-title">
-                            <h2>Gallery<span class="heading-border"></span></h2>
-                            <div class="clear"></div>
-                            <em>View a collection of some of our best quality fabrics and designs for satisfied clients</em>
-                        </div>
-                    </div>
-                    <!--//==Section Heading End==//-->
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="wa-partner-carousel owl-carousel-style1 text-center owl-carousel owl-theme">
-                                {% for image in images %}
-                                <div class="col-md-12" >
-                                    <div class="wa-products">
-                                        <div class="wa-products-thumbnail wa-item">
-                                            <img src="{{ image.image.url }}" alt="">
-                                        </div>
-                                        <h5><a href="{% url 'core:gallery' %}">{{ image.title }}</a></h5>
-                                    </div>
-                                </div>
-                                {% endfor %} 
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!--//=========Gallery End=========//-->
-
-        <!--//=============Accessory Section Start============//-->
+        <!--//=============Gallery Section Start============//-->
         <div class="wa-products-main padT100 padB80">
             <div class="container">
                 <div class="row">
                     <!--//==Section Heading Start==//-->
                     <div class="col-md-12">
                         <div class="centered-title">
-                            <h2>Accessories <span class="heading-border"></span></h2>
+                            <h2>Gallery <span class="heading-border"></span></h2>
                             <div class="clear"></div>
-                            <em>Take a look at some of the beautiful accessories for your native wears</em>
+                            <em>View a collection of some of our best quality fabrics and designs for satisfied clients</em>
                         </div>
                     </div>
                     <!--//==Section Heading End==//-->
@@ -306,33 +231,78 @@
                 <div class="row">
                     <div id="best-seller" class="owl-carousel owl-theme carousel-style-1">
                         <!--//==product Item==//-->
-                        {% for accessory in accessories %}
+
+                    {% for image in images %}
                         <div class="col-md-12" >
                             <div class="wa-products">
                                 <div class="wa-products-thumbnail wa-item">
-                                    <img src="{{ accessory.image.url }}" alt="">
-                                    <div class="caption">
+                                    <img src="{{ image.image.url }}" alt="Gallery Image">
+                                    
+                                </div>
+                                <div class="wa-products-caption">
+                                    <h2><a href="{% url 'core:gallery' %}">{{ image.title }}</a></h2>                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                    {% endfor %}
+                        
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <!--//============= Gallery End============//-->
+
+
+        <!--//============= Accessory product Start============//-->
+        <div class="wa-products-main padTB100">
+            <div class="container">
+                <div class="row">
+                    <!--//==Section Heading Start==//-->
+                    <div class="col-md-12">
+                        <div class="centered-title">
+                            <h2>Latest Accessories <span class="heading-border"></span></h2>
+                            <div class="clear"></div>
+                            <em>Take a look at some of our best accessories to accompany your classic wears</em>
+                        </div>
+                    </div>
+                    <!--//==Section Heading End==//-->
+                </div>
+                <div class="row" id="MixItUp1">
+                    <!--//==product Item==//-->
+
+                {% for product in products %}
+                    {% if product.product_type == 'accessory' %}
+                        <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-0 mix" >
+                            <div class="wa-products">
+                                <div class="wa-products-thumbnail wa-item">
+                                    <img src="{{ product.image.url }}" alt="">						
+                                        <div class="caption">
                                         <div class="caption-text">
                                             <ul class="wa-products-icon">
-                                                <li><a class="add-to-wishlist" title="Add to wishlist"  data-product-item="{{ accessory.id }}"><i class="fa fa-heart-o"></i></a></li>
-                                                <li><a href="" class="quickview-box-btn" data-product-id="{{ accessory.id }}" title="Quick View"><i class="fa fa-eye"></i></a></li>
+                                                <li><a class="add-to-wishlist" title="Add to wishlist"  data-product-item="{{ product.id }}"><i class="fa fa-heart-o"></i></a></li>
+                                                <li><a href="" class="quickview-box-btn" data-product-id="{{ product.id }}" title="Quick View"><i class="fa fa-eye"></i></a></li>
                                                 <li>
-                                                    <a class="add-to-cart-btn" title="Add to cart"  data-index="{{ p.id }}">
-                                                        <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
-                                                        <input type="hidden" class="product-pid-{{p.id}}" value="{{accessory.pid}}">
-                                                        <input type="hidden" class="product-image-{{p.id}}" value="{{accessory.image.url}}">
-                                                        <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
-                                                        <input type="hidden" class="product-title-{{p.id}}" value="{{ accessory.title }}">
+                                                    <a class="add-to-cart-btn" title="Add to cart"  data-index="{{ product.id }}">
+                                                        <input type="hidden" class="product-id-{{product.id}}" value="{{ product.id }}">
+                                                        <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{product.id}}">
+                                                        <input type="hidden" class="product-pid-{{product.id}}" value="{{product.pid}}">
+                                                        <input type="hidden" class="product-image-{{product.id}}" value="{{product.image.url}}">
+                                                        <input type="hidden" class="product-title-{{product.id}}" value="{{ product.title }}">
                                                         <i class="fa fa-shopping-basket"></i>
                                                     </a>
                                                 </li>
                                             </ul>
+                                        
                                             <div class="clear"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="wa-products-caption">
-                                    <h2><a href="{% url 'core:product-detail' product_type='accessory' pid=accessory.pid %}">{{ accessory.title }}</a></h2>
+                                    <h2><a href="{% url 'core:product-detail' product_type='accessory' pid=product.pid %}">{{ product.title }}</a></h2>
+
                                     <div class="clear"></div>
                                     <ul class="ratings">
                                         <li><a href=""><i class="fa fa-star"></i></a></li>
@@ -343,20 +313,21 @@
                                     </ul>
                                     <div class="clear"></div>
                                     <span class="price">
-                                    {% comment %} <del>Rs {{ accessory.old_price }}</del> {% endcomment %}
-                                    <b>Rs<a class="current-product-price-{{ p.id }}" id="current-product-price-{{ p.id }}"> {{ accessory.price }}</a></b>
+                                        <b>Rs<a class="current-product-price-{{ product.id }}" id="current-product-price-{{ product.id }}"> {{ product.price }}</a></b>
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
-                        
-                    </div>
+                    {% endif %}
+                {% endfor %}
+                    
                     <div class="clear"></div>
                 </div>
             </div>
         </div>
-        <!--//=============Accessory Section End============//-->	
+        <!--//=============Accessory product End============//-->	
+
+        
         <!--//=======Collection Section Start=======//--> 
         <section class="collection-section collection-res padB100">
             <div class="container">

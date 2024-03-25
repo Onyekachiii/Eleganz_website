@@ -66,8 +66,8 @@
                             <ul class="inline top-ecommerce-icons light-section-icon">
                                 <li>
                                     <!-- Mini Wishlist Icon -->
-                                    <a href="#" class="wishlistIcon">
-                                        <i class="fa fa-heart wishlist-items-count" aria-hidden="true"></i>
+                                    <a href="{% url 'core:wishlist' %}" class="wishlistIcon">
+                                        <i class="fa fa-heart wishlist-items-count" aria-hidden="false"></i>
                                         <sup>{{ wishlist.count }}</sup>
                                     </a>
 
@@ -206,20 +206,13 @@
                                         <ul class="inline top-ecommerce-icons light-section-icon">
                                             <li>
                                                 <!-- Mini Wishlist Icon -->
-                                                <a href="#" class="wishlistIcon">
-                                                    <i class="fa fa-heart wishlist-items-count" aria-hidden="true"></i>
+                                                <a href="{% url 'core:wishlist' %}" class="wishlistIcon">
+                                                    <i class="fa fa-heart wishlist-items-count" aria-hidden="false"></i>
                                                     <sup>{{ wishlist.count }}</sup>
                                                 </a>
 
-                                                {% comment %} <!-- Mini Wishlist Popup -->
-                                                <div class="mini-wishlist">
-                                                    <!-- Mini Wishlist Content -->
-                                                    <ul class="mini-wishlist-items">
-                                                        <!-- Mini Wishlist Items will be populated here -->
-                                                    </ul>
-                                                </div> {% endcomment %}
-
-                                                <!--end shopping-cart -->
+                                                
+                                                
                                             </li>
                                             <li>
                                                 <a href="#" class="userIcon">
@@ -249,36 +242,11 @@
                                                     <sup>{{ request.session.cart_data_obj|length }}</sup>
                                                 </a>
 
-                                                {% comment %} <!-- Mini Cart Popup -->
-                                                <div class="shopping-cart">
-                                                    <!-- Mini Cart Content -->
-                                                    <ul class="shopping-cart-items">
-                                                        <!-- Mini Cart Items will be populated here -->
-                                                    </ul>
-
-                                                    <!-- Mini Cart Footer -->
-                                                    <div class="shopping-cart-footer">
-                                                        <div class="shopping-cart-total">
-                                                            <span class="lighter-text pull-left">Total:</span>
-                                                            <span class="main-color-text pull-right">$0.00</span> <!-- Total amount will be updated here -->
-                                                        </div>
-                                                    </div>
-    
-                                                    <!-- Checkout Button -->
-                                                    <a href="#" class="theme-button">Checkout</a>
-                                                </div>
-
-                                                <!--end shopping-cart --> {% endcomment %}
+                                               
                                             </li>
                                         </ul>
                                     </div>
-                                    {% comment %} <div class="carousel slide advert-single menubar-ads carousel-fade hidden-xs">
-                                        <div class="carousel-inner">
-                                            <div class="item active">
-                                                <figure><a href=""><img src="{% static 'assets/img/all/1.png' %}" alt=""></a></figure>
-                                            </div>
-                                        </div>
-                                    </div> {% endcomment %}
+                                    
                                 </div>
                             </div>
                             <!-- /.row -->

@@ -18,6 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 def index (request):
     fabrics = Product.objects.filter(product_type='fabric')
     accessories = Product.objects.filter(product_type='accessory')
+    products = Product.objects.filter(product_status='published', featured=True)
     categories = Category.objects.all()
     images = GalleryImage.objects.all()
     
@@ -26,6 +27,7 @@ def index (request):
         "accessories": accessories,
         "categories": categories,
         "images": images,
+        "products": products,
     }
     return render(request, 'core/index.html', context)
 
@@ -39,11 +41,13 @@ def about_us(request):
 def product_list_view(request):
     fabrics = Product.objects.filter(product_type='fabric')
     accessories = Product.objects.filter(product_type='accessory')
+    products = Product.objects.filter(product_status='published', featured=True)
    
     
     context = {
         "fabrics": fabrics,
         "accessories": accessories,
+        "products": products,
 
     }
     return render(request, 'core/product-list.html', context)
@@ -197,7 +201,9 @@ def cart_view(request):
         return render(request, 'core/cart.html', {"cart_data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     else:
         messages.warning(request, "Your cart is empty")
-        return redirect('core:index')
+        # Redirect to the login page if the user is not authenticated
+        return redirect('userauths:sign-in')
+    
     
 # To delete item from cart
 @login_required
@@ -212,7 +218,15 @@ def delete_item_from_cart(request):
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for product_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price']) 
+            if item['qty'] and item['price']:
+                # Clean the price string before conversion
+                cleaned_price_string = clean_price_string(item['price'])
+
+                try:
+                    cart_total_amount += int(item['qty']) * float(cleaned_price_string)
+                except ValueError:
+                    messages.error(request, f"Invalid price format for item. Please check your cart.")
+                    return redirect('core:index')
     
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
@@ -247,7 +261,6 @@ def add_to_wishlist(request):
     context = {}
     
     wishlist_count = WishList.objects.filter(user=request.user, product=product).count()
-    print(wishlist_count)
     
     if wishlist_count > 0:
         context = {
@@ -255,14 +268,15 @@ def add_to_wishlist(request):
         }
     else:
         new_wishlist = WishList.objects.create(
-            product = product,
-            user = request.user
+            product=product,
+            user=request.user
         )
         context ={
             "bool": True,
         }
     
     return JsonResponse(context)
+
 
 
 # To view wishlist
