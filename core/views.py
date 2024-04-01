@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile
-from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, CartOrderRequest, ProductReview, WishList, GalleryImage
+from core.models import CartOrderProducts, Product, ProductImages, Category, ProductReview, WishList, GalleryImage
 from core.forms import ProductReviewForm
 from django.core import serializers
 from django.contrib import messages
@@ -316,3 +316,23 @@ def gallery(request):
 
 
 
+@login_required
+def user_dashboard(request):
+    user = request.user
+    orders = CartOrderProducts.objects.filter(user=user)
+    profile = request.user.profile
+
+    context = {
+        'user': user,
+        'orders': orders,
+        'profile': profile
+    }
+    return render(request, 'core/dashboard.html', context)
+
+@login_required
+def user_history(request):
+    orders = CartOrderProducts.objects.filter(order__user=request.user).order_by("-id")
+    context = {
+        "orders": orders,
+    }
+    return render(request, 'core/user-history.html', context)

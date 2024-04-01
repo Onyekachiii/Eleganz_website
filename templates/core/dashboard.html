@@ -1,134 +1,243 @@
-{% extends 'partials/base.html' %}
 {% load static %}
 
-{% block content %}
 
-<main class="main-content" id="cart-list">
+<!doctype html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="./assets2/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./assets2/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    User Dashboard
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  
+</head>
 
-      <!--//==Page Header Start==//-->	  
-      <div class="page-header black-overlay">
-        <div class="container breadcrumb-section">
-            <div class="row pad-s15">
-                <div class="col-md-12">
-                    <h2>Contact us</h2>
-                    <div class="clear"></div>
-                    <div class="breadcrumb-box">
-                        <ul class="breadcrumb">
-                            <li>
-                                <a href="{% url 'core:index' %}">Home</a>
-                            </li>
-                            <li class="active">User Dashboard</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--     Fonts and icons     -->
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+<!-- CSS Files -->
+<link href="{% static 'assets2/css/bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'assets2/css/paper-dashboard.css' %}" rel="stylesheet" />
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link href="{% static 'assets2/demo/demo.css' %}" rel="stylesheet" />
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+          
+        </a>
+        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+          Your Logo
+          
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="active ">
+            <a href="javascript:;">
+              <i class="nc-icon nc-bank"></i>
+              <p>User Profile</p>
+            </a>
+          </li>
+          <li>
+            <a href="{% url "core:user-history" %}">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Orders</p>
+            </a>
+          </li>
+          
+          <li>
+            <a href="javascript:;">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>Checkout</p>
+            </a>
+          </li>
+          
+          <li>
+            <a href="{% url 'userauths:sign-out' %}">
+              <i class="nc-icon nc-pin-3"></i>
+              <p>Sign-out</p>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <!--//==Page Header End==//-->
-
-    <!-- User profile section -->
-    <section class="ec-page-content ec-vendor-uploads ec-user-account section-space-p">
-        <div class="container">
-            <div class="row">
-                <!-- Sidebar Area Start -->
-                <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
-                    <div class="ec-sidebar-wrap ec-border-box">
-                        <!-- Sidebar Category Block -->
-                        <div class="ec-sidebar-block">
-                            <div class="ec-vendor-block">
-                                <!-- <div class="ec-vendor-block-bg"></div>
-                                <div class="ec-vendor-block-detail">
-                                    <img class="v-img" src="assets/images/user/1.jpg" alt="vendor image">
-                                    <h5>Mariana Johns</h5>
-                                </div> -->
-                                <div class="ec-vendor-block-items">
-                                    <ul>
-                                        <li><a href="user-profile.html">User Profile</a></li>
-                                        <li><a href="user-history.html">History</a></li>
-                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="track-order.html">Track Order</a></li>
-                                        <li><a href="user-invoice.html">Invoice</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ec-shop-rightside col-lg-9 col-md-12">
-                    <div class="ec-vendor-dashboard-card ec-vendor-setting-card">
-                        <div class="ec-vendor-card-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="ec-vendor-block-profile">
-                                        <div class="ec-vendor-block-img space-bottom-30">
-                                            <div class="ec-vendor-block-bg">
-                                                <a href="#" class="btn btn-lg btn-primary"
-                                                    data-link-action="editmodal" title="Edit Detail"
-                                                    data-bs-toggle="modal" data-bs-target="#edit_modal">Edit Detail</a>
-                                            </div>
-                                            <div class="ec-vendor-block-detail">
-                                                <img class="v-img" src="assets/images/user/1.jpg" alt="vendor image">
-                                                <h5 class="name">Mariana Johns</h5>
-                                                <p>( Business Man )</p>
-                                            </div>
-                                            <p>Hello <span>Mariana Johns!</span></p>
-                                            <p>From your account you can easily view and track orders. You can manage and change your account information like address, contact information and history of orders.</p>
-                                        </div>
-                                        <h5>Account Information</h5>
-
-                                        <div class="row">
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="ec-vendor-detail-block ec-vendor-block-email space-bottom-30">
-                                                    <h6>E-mail address <a href="javasript:void(0)" data-link-action="editmodal" title="Edit Detail" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="fi-rr-edit"></i></a></h6>
-                                                    <ul>
-                                                        <li><strong>Email 1 : </strong>support1@exapmle.com</li>
-                                                        <li><strong>Email 2 : </strong>support2@exapmle.com</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="ec-vendor-detail-block ec-vendor-block-contact space-bottom-30">
-                                                    <h6>Contact nubmer<a href="javasript:void(0)" data-link-action="editmodal" title="Edit Detail" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="fi-rr-edit"></i></a></h6>
-                                                    <ul>
-                                                        <li><strong>Phone Nubmer 1 : </strong>(123) 123 456 7890</li>
-                                                        <li><strong>Phone Nubmer 2 : </strong>(123) 123 456 7890</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="ec-vendor-detail-block ec-vendor-block-address mar-b-30">
-                                                    <h6>Address<a href="javasript:void(0)" data-link-action="editmodal" title="Edit Detail" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="fi-rr-edit"></i></a></h6>
-                                                    <ul>
-                                                        <li><strong>Home : </strong>123, 2150 Sycamore Street, dummy text of
-                                                            the, San Jose, California - 95131.</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <div class="ec-vendor-detail-block ec-vendor-block-address">
-                                                    <h6>Shipping Address<a href="javasript:void(0)" data-link-action="editmodal" title="Edit Detail" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="fi-rr-edit"></i></a></h6>
-                                                    <ul>
-                                                        <li><strong>Office : </strong>123, 2150 Sycamore Street, dummy text of
-                                                            the, San Jose, California - 95131.</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="main-panel" style="height: 100vh;">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
             </div>
+            <a class="navbar-brand" href="javascript:;">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            
+            <ul class="navbar-nav">
+              <li class="nav-item btn-rotate dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="{% url 'core:index' %}">Back to homepage</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-    </section>
-    <!-- End User profile section -->
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card card-user">
+              
+              <div class="card-body">
+                <div class="author">
+                  <a href="#">
+                    {% if profile.image %}
+                    <img class="avatar border-gray" src="{{ profile.image.url }}" alt="...">
+                    {% else %}
+                    <img class="v-img" src="{% static 'assets/images/user/1.jpg' %}" alt="user image">
+                    {% endif %}
+                    <h5 class="title">Hi {{ profile.user.username}}</h5>
+                  </a>
+                  
+                </div>
+              </div>
+              <div class="card-footer">
+                <hr>
+                
+              </div>
+            </div>
+           
+          </div>
+          <div class="col-md-8">
+            <div class="card card-user">
+              <div class="card-header">
+                <h5 class="card-title">Edit Profile</h5>
+              </div>
+              <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-5 pr-1">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input type="text" class="form-control" placeholder="Company" value="Mr/Miss/Mrs">
+                            </div>
+                        </div>
+                        <div class="col-md-3 px-1">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" placeholder="Username" value="{{ profile.user.username }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" placeholder="Email" value="{{ profile.user.email }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" placeholder="Company" value="{{ profile.first_name }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" placeholder="Last Name" value="{{ profile.last_name }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" placeholder="Home Address" value="{{ profile.house_address }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" class="form-control" placeholder="City" value="{{ profile.city }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 px-1">
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" class="form-control" placeholder="Country" value="{{ profile.country }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                                <label>Profile Image</label>
+                                <input type="file" class="form-control" placeholder="choose file" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <button type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                        </div>
+                    </div>
+                </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer" style="position: absolute; bottom: 0; width: -webkit-fill-available;">
+        <div class="container-fluid">
+          <div class="row">
+            
+            
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="{% static 'assets2/js/core/jquery.min.js' %}"></script>
+  <script src="{% static 'assets2/js/core/popper.min.js' %}"></script>
+  <script src="{% static 'assets2/js/core/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets2/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="{% static 'assets2/js/plugins/chartjs.min.js' %}"></script>
+  <!--  Notifications Plugin    -->
+  <script src="{% static 'assets2/js/plugins/bootstrap-notify.js' %}"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="{% static 'assets2/js/paper-dashboard.min.js' %}" type="text/javascript"></script>
+</body>
 
-
-</main>
-
-{% endblock content %}
+</html>

@@ -2,6 +2,8 @@ from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 STATUS = (
@@ -11,11 +13,12 @@ STATUS = (
     ("published", "Published"),
 )
 
-STATUS_CHOICE = (
-    ("processing", "Processing"),
-    ("shipped", "Shipped"),
-    ("delivered", "Delivered"),
-)
+STATUS_CHOICES = [
+    ('processing', 'Processing'),
+    ('shipped', 'Shipped'),
+    ('delivered', 'Delivered'),
+    ('cancelled', 'Cancelled'),
+]
 
 RATING = (
     (1, "★✩✩✩✩"),
@@ -102,25 +105,24 @@ class ProductImages(models.Model):
 
 
 class CartOrder(models.Model):
-    user = models.ForeignKey( User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
     paid_status = models.BooleanField(default=False)
     order_date = models.DateTimeField(auto_now_add=True)
-    product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
+    product_status = models.CharField(choices=STATUS_CHOICES, max_length=30, default="processing")
     
     class Meta:
-        verbose_name_plural = "Cart Order"
-        
+        verbose_name_plural = "Orders"
 
 class CartOrderProducts(models.Model):
     order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
-    invoice_no = models.CharField(max_length=200, default=0)
+    invoice_no = models.CharField(max_length=200)
     product_status = models.CharField(max_length=200)
     item = models.CharField(max_length=200)
     image = models.CharField(max_length=200)
     qty = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)
     
     
     class Meta:
@@ -139,13 +141,25 @@ class CartOrderRequest(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
-    delivery_address = models.TextField()
-    delivery_floor_level = models.CharField(max_length=50)
+    address = models.TextField()
     description = models.TextField(default=None, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.first_name} - {self.timestamp}"
+    
+
+@receiver(post_save, sender=User)
+def create_cart_order_request(sender, instance, created, **kwargs):
+    if created:
+        CartOrderRequest.objects.create(
+            user=instance,
+            first_name=instance.first_name,
+            last_name=instance.last_name,
+            email=instance.email,
+            phone="",  # You can leave it empty or set a default value
+            address="",  # You can leave it empty or set a default value
+        )
     
 
 class ProductReview(models.Model):

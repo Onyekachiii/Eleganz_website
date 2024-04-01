@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from userauths.forms import UserRegisterForm, ContactFormForm
+from userauths.forms import ProfileForm, UserRegisterForm, ContactFormForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from userauths.models import User
+from userauths.models import User, Profile
+from django.contrib.auth.decorators import login_required
 
 
 def register_view(request):
@@ -70,4 +71,26 @@ def contact_us(request):
         form = ContactFormForm()
 
     return render(request, 'userauths/contact-us.html', {'form': form})
+
+@login_required
+def edit_profile(request):
+    profile = request.user.profile
+    
+    if request.method == "POST":
+        profile.first_name = request.POST.get('first_name')
+        profile.last_name = request.POST.get('last_name')
+        profile.bio = request.POST.get('bio')
+        profile.phone = request.POST.get('phone')
+        profile.house_address = request.POST.get('house_address')
+        profile.city = request.POST.get('city')
+        profile.country = request.POST.get('country')
+        if 'image' in request.FILES:
+            profile.image = request.FILES['image']
+        profile.save()
+        return redirect('core:dashboard')  # Redirect to dashboard after saving
+        
+    context = {
+        'profile': profile
+    }
+    return render(request, 'core/dashboard.html', context)
 

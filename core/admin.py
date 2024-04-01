@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import CartOrderRequest, Product, ProductImages, Category, CartOrder, CartOrderProducts, WishList, GalleryImage
+from core.models import CartOrder, CartOrderProducts, CartOrderRequest, Product, ProductImages, Category, WishList, GalleryImage
 from django import forms
 from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -32,7 +32,7 @@ class CartOrderAdmin(admin.ModelAdmin):
     
     
 class CartOrderRequestAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'phone', 'delivery_address', 'delivery_floor_level', 'description']
+    list_display = ['user', 'email', 'phone', 'address', 'description']
 
 
 class WishListAdmin(admin.ModelAdmin):
