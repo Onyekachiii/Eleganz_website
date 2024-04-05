@@ -167,10 +167,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-md-6 wv_checkout wv_form_field">							   
-                                    <button type="submit" class="theme-button col-xs-12 marT0">checkout</button>
+                                    <a href="{% url "core:checkout" %}"><button type="submit" class="theme-button col-xs-12 marT0">Checkout</button></a>
                                 </div>
                                 <div class="col-xs-12 col-md-6 wv_checkout wv_form_field1 responsive_field1">
-                                    <button type="submit" class="theme-button col-xs-12 marT0">continue ordeing </button>
+                                    <a href="{% url "core:product-list" %}"><button type="submit" class="theme-button col-xs-12 marT0">Continue ordering </button></a>
                                 </div>
                             </div>
                         </div>

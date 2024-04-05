@@ -141,7 +141,7 @@ class CartOrderRequest(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
-    address = models.TextField()
+    delivery_address = models.TextField()
     description = models.TextField(default=None, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 

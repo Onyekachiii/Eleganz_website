@@ -24,7 +24,7 @@
         
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        {% comment %} <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
 
@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="{% static 'assets/css/documenter_style.css' %}" media="all">
         <link rel="stylesheet" href="{% static 'assets/js/google-code-prettify/prettify.css' %}" media="screen">
         <script src="{% static 'assets/js/google-code-prettify/prettify.js' %}"></script>
-        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /> {% endcomment %}
         
         
     </head>
@@ -599,10 +599,10 @@
         <script src="{% static 'assets/plugins/owl-carousel/js/owl.carousel.js' %}"></script>   
         <script src="{% static 'assets/js/main.js' %}"></script>
 
-        <script src="{% static 'assets/js/jquery.js' %}"></script>
+        {% comment %} <script src="{% static 'assets/js/jquery.js' %}"></script>
         <script src="{% static 'assets/js/jquery.scrollTo.js' %}"></script>
         <script src="{% static 'assets/js/jquery.easing.js' %}"></script>
         <script>document.createElement('section');var duration='450',easing='easeOutExpo';</script>
-        <script src="{% static 'assets/js/script.js' %}"></script>
+        <script src="{% static 'assets/js/script.js' %}"></script> {% endcomment %}
     </body>
 </html>

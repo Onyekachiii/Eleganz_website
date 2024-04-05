@@ -32,7 +32,7 @@ class CartOrderAdmin(admin.ModelAdmin):
     
     
 class CartOrderRequestAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'phone', 'address', 'description']
+    list_display = ['user', 'email', 'phone', 'delivery_address', 'description']
 
 
 class WishListAdmin(admin.ModelAdmin):

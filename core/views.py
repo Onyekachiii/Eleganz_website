@@ -4,8 +4,8 @@ from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile
-from core.models import CartOrderProducts, Product, ProductImages, Category, ProductReview, WishList, GalleryImage
-from core.forms import ProductReviewForm
+from core.models import CartOrder, CartOrderProducts, Product, ProductImages, Category, ProductReview, WishList, GalleryImage
+from core.forms import ProductReviewForm, CartOrderRequestForm
 from django.core import serializers
 from django.contrib import messages
 from django.urls import reverse
@@ -253,6 +253,79 @@ def update_cart(request):
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
 
 
+# To checkout
+@login_required
+def checkout_view(request):
+    cart_total_amount = 0
+    total_amount = 0
+
+    # Initializing the form variable
+    form = CartOrderRequestForm()
+
+    # Checking if cart_data_obj is in session
+    cart_data_obj = request.session.get('cart_data_obj', None)
+    
+    if cart_data_obj is None:
+        cart_data_obj = {} 
+        
+    if cart_data_obj:
+        for product_id, item in cart_data_obj.items():
+            total_amount += int(item['qty']) * float(item['price'])
+
+        # Creating order objects
+        order = CartOrder.objects.create(
+            user=request.user,
+            price=total_amount,
+        )
+
+        # Getting total amount for the cart
+        for product_id, item in cart_data_obj.items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+
+            cart_order_products = CartOrderProducts.objects.create(
+                order=order,
+                invoice_no="INVOICE_NO-" + str(order.id),
+                item=item['title'],
+                image=item['image'],
+                qty=item['qty'],
+                price=item['price'],
+                total=float(item['qty']) * float(item['price']),
+            )
+
+    if request.method == 'POST':
+        form = CartOrderRequestForm(request.POST)
+
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+
+            # Clear the cart_data_obj from the session after processing
+            del request.session['cart_data_obj']
+
+            messages.success(request, 'Your cart order request has been submitted successfully.')
+            return redirect('core/index')
+
+    else:
+        # Get the user's profile
+        user_profile = Profile.objects.get(user=request.user)
+
+        # Prepopulate form fields with user profile data
+        form_data = {
+            'first_name': user_profile.user.first_name,
+            'last_name': user_profile.user.last_name,
+            'email': user_profile.user.email,
+            'phone': user_profile.phone,  # Assuming phone is a field in your Profile model
+        }
+
+        # Update the form with the prepopulated data
+        form = CartOrderRequestForm(initial=form_data)
+
+    return render(request, 'core/checkout.html', {'cart_data_obj': cart_data_obj,
+                                                   'totalcartitems': len(cart_data_obj),
+                                                   'cart_total_amount': cart_total_amount,
+                                                   'form': form})
+
+
 # To add to wishlist
 def add_to_wishlist(request):
     id = request.GET['id']
@@ -319,7 +392,7 @@ def gallery(request):
 @login_required
 def user_dashboard(request):
     user = request.user
-    orders = CartOrderProducts.objects.filter(user=user)
+    orders = CartOrder.objects.filter(user=user)
     profile = request.user.profile
 
     context = {

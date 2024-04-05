@@ -28,6 +28,9 @@ $(window).on("load", function() {
     var closeQuickView = $('.close-quick-view');
     var quickViewPopup = $('.quick-view-popup');
     var quickviewBtn = $('.quickview-box-btn');
+    var closeQuickView2 = $('.close-quick-view2');
+    var quickView2Popup = $('.quick-view2-popup');
+    var quickview2Btn = $('.quickview2-box-btn');
 
     // ============================================
     // PreLoader On window Load
@@ -185,6 +188,51 @@ $(window).on("load", function() {
             // Update other product details as needed
         }
     }
+
+
+    // if (quickView2Popup.length) {
+    //     quickview2Btn.on('click', function(e) {
+    //         e.preventDefault();
+    //         var paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+    //         if (paymentMethod === 'cheque') {
+    //             modal.style.display = "block";
+    //         } else {
+    //             document.getElementById("checkoutForm").submit();
+    //             }
+    //     });
+    
+    //     closeQuickView2.on('click', function(e) {
+    //         e.preventDefault();
+    //         quickView2Popup.removeClass('showpopup');
+    //     });
+    
+    //     // Function to fetch product data based on product ID
+    //     function getProductData(productId) {
+    //         $.ajax({
+    //             url: '/get-product-data/',  // URL of your Django endpoint to fetch product data
+    //             method: 'GET',
+    //             success: function(response) {
+    //                 var product = response.find(item => item.id === productId);
+    //                 updateQuickView2Popup(product);
+    //             },
+    //             error: function(xhr, status, error) {
+    //                 console.error('Failed to fetch product data:', error);
+    //             }
+    //         });
+    //     }
+    
+    //     // Function to update Quick View popup with product details
+    //     function updateQuickView2Popup(product) {
+    //         quickView2Popup.addClass('showpopup');
+    //         quickView2Popup.find('.prod-info-section .wa-product-main-image img').attr('src', product.image);
+    //         quickView2Popup.find('.prod-info-section .title-box h2').text(product.title);
+    //         quickView2Popup.find('.prod-info-section .title-box .price span').text(product.price);
+    //         quickView2Popup.find('.prod-info-section .title-box .price span').text(product.old_price);
+    //         // Update other product details as needed
+    //     }
+    // }
+
+    
     
     
 
@@ -386,6 +434,59 @@ $(document).ready(function() {
     });
 
 
+    // Get the modal
+  var modal = document.getElementById('bankTransferModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("placeOrderButton");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal 
+  btn.onclick = function() {
+    var paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+    if (paymentMethod === 'cheque') {
+      modal.style.display = "block";
+    } else {
+      document.getElementById("checkoutForm").submit();
+    }
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  // Handle the "Payment Made" button click
+  document.getElementById("paymentMadeButton").onclick = function() {
+    var formData = new FormData();
+    formData.append('paymentEvidence', document.getElementById('paymentEvidence').files[0]);
+
+    fetch('/process_payment/', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          window.location.href = '/order-completed/';
+        } else {
+          alert('Failed to submit payment evidence. Please try again.');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to submit payment evidence. Please try again.');
+      });
+  }
+
     
 
 });
@@ -410,6 +511,7 @@ function checkoutPageEffect() {
     var paymentBoxPaypal = $('.payment_box.payment_method_paypal');
 
 
+    loginDiv.hide();
     showlogin.on('click', function(e) {
         e.preventDefault();
         loginDiv.slideToggle("slow");

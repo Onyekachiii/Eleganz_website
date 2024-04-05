@@ -1,0 +1,255 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <!--//==Page Header Start==//-->	  
+        <div class="page-header black-overlay">
+            <div class="container breadcrumb-section">
+                <div class="row pad-s15">
+                    <div class="col-md-12">
+                        <h2>Checkout Page</h2>
+                        <div class="clear"></div>
+                        <div class="breadcrumb-box">
+                            <ul class="breadcrumb">
+                                <li>
+                                    <a href="{% url "core:index" %}">Home</a>
+                                </li>
+                                <li class="active">Checkout Page</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--//==Page Header End==//-->
+        <!--//== Order Billing and shipping Section Start ==//-->  
+        <section class="checkout-page padT100 padB50">
+            <div class="container">
+                <div class="row product-checkout pad-s15">
+                    
+                    <!--//==Billings and Shipping Form Start==//-->	
+                    <form class="contact-form" method="POST">
+                        {% csrf_token %}
+                        <div class="col-sm-6 col-md-6 wv_checkout_left marT30">
+                            <!--//== Section Heading Start ==//-->
+                            <div class="left-title">
+                                <h2>Shipping details <span class="heading-border"></span></h2>
+                                <div class="clear"></div>
+                            </div>
+                            <!--//== Section Heading End ==//-->
+                            <!--//==Billings Form Start==//-->	
+                            <div class="row">
+                                <!--//==Billings Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    {% comment %} <input class="wv_form_focus" type="text" placeholder="First Name:">  {% endcomment %}
+                                    {{ form.first_name }}
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    {% comment %} <input class="wv_form_focus" type="text" placeholder="Last Name:">  {% endcomment %}
+                                    {{ form.last_name }}
+                                </div>
+                                {% comment %} <div class="col-md-12 form-group">
+                                    <input class="wv_form_focus" type="text" placeholder="Company Name:">
+                                </div> {% endcomment %}
+                                <!--//==Billings Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    {% comment %} <input class="wv_form_focus" type="email" id="exampleInputEmail" placeholder="Email:"> {% endcomment %}
+                                    {{ form.email }}
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    {% comment %} <input class="wv_form_focus" type="number" placeholder="Phone Number:"> {% endcomment %}
+                                    {{ form.phone }}
+                                </div>
+                                <!--//==Billings Input Field==//-->
+                                <div class="col-md-12 form-group">
+                                    {% comment %} <input class="wv_form_focus" type="text" placeholder="Street Address:"> {% endcomment %}
+                                    {{ form.delivery_address }}
+                                </div>
+                                
+                                <div class="create-account col-sm-12">
+                                    <p>Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+                                    <p id="account_password_field">
+                                        <input type="password" value="" placeholder="Account password*" id="account_password" name="account_password" class="form-controller">
+                                    </p>
+                                </div>
+                            </div>
+                            <!--//==Billings Form Start==//-->	
+                        </div>
+                        <div class="col-sm-6 col-md-6 marT30">
+                            <!--//== Section Heading Start ==//-->
+                            <div class="left-title">
+                                <h2 id="ship-to-different-address">Description for your order<span class="heading-border"></span>
+                                    {% comment %} <input type="checkbox" value="1" name="ship_to_different_address" class="input-checkbox" id="ship-to-different-address-checkbox"> {% endcomment %}
+                                </h2>
+                                <div class="clear"></div>
+                            </div>
+                            <!--//== Section Heading End ==//-->
+                            <!--//==Shipping Form Start==//-->							
+                            <div class="row shipping-fields">
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    <input class="wv_form_focus" type="text" placeholder="First Name:">
+                                </div>
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    <input class="wv_form_focus" type="text" placeholder="Last Name:">
+                                </div>
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-12 form-group">
+                                    <input class="wv_form_focus" type="text" placeholder="Company Name:">
+                                </div>
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    <input class="wv_form_focus" type="email" id="exampleInputEmail1" placeholder="Email:">
+                                </div>
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    <input class="wv_form_focus" type="number" placeholder="Phone Number:">
+                                </div>
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-12 form-group">
+                                    <input class="wv_form_focus" type="text" placeholder="Street Address:">
+                                </div>
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    <input class="wv_form_focus" type="text" placeholder="Town/City:">
+                                </div>
+                                <!--//==Shipping Input Field==//-->
+                                <div class="col-md-6 form-group">
+                                    <input class="wv_form_focus" type="text" placeholder="Postcode/zip:">
+                                </div>
+                            </div>
+                            <!--//==Shipping Form End==//-->
+                            <div class="row">
+                                <!--//==Extra Message Field==//-->
+                                <div class="col-md-12 form-group">
+                                    <textarea name="contact_message" label for="description" name="description" id="description" class="textarea-message wv_form_focus wv_checkout_tarea" placeholder="Notes about your order, e.g. special notes for delivery." rows="8"></textarea>							
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--//==Billings and Shipping Form End==//-->	
+                </div>
+            </div>
+        </section>
+        <!--//== Order Billing and shipping Section End ==//-->  	
+        <!--//== Place Order Start ==//-->  
+        <section class="cart-page padB100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 wv_subtotal">
+                        <!--//== Section Heading Start ==//-->
+                        <div class="left-title">
+                            <h2>Order Detail <span class="heading-border"></span></h2>
+                            <div class="clear"></div>
+                        </div>
+                        <!--//== Section Heading End ==//-->
+                        <!--//== Total Price Section Start ==//-->
+                        <div class="wv_shipping">
+                            <div class="wv_subtotaling wv_checkout_subtotal">
+                                <div class="col-xs-6 col-md-6 wv_subtotal_left textL">
+                                    <b><p>Products</p></b>
+                                </div>
+                                <div class="col-xs-6 col-md-6 wv_subtotal_right textR">
+                                    <b><p>Total</p></b>
+                                </div>
+                            </div>
+                            {% for product_id, item in cart_data_obj.items %}
+                                <div class="wv_subtotaling wv_checkout_subtotal1 padT10">
+                                    <div class="col-xs-6 col-md-6 wv_subtotal_left textL">
+                                        <span>{{ item.title }} x {{ item.qty }}</span>
+                                    </div>
+                                    <div class="col-xs-6 col-md-6 wv_subtotal_right textR">
+                                        <span>Rs {{ item.price|floatformat:2 }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <div class="wv_subtotaling">
+                                <div class="col-xs-6 col-md-6 wv_subtotal_left textL">
+                                    <b><p>Subtotal</p></b>
+                                </div>
+                                <div class="col-xs-6 col-md-6 wv_subtotal_right textR">
+                                    <b><p>Rs {{ cart_total_amount|floatformat:2 }}</p></b>
+                                </div>
+                            </div>
+                            <div class="wv_subtotaling">
+                                <div class="col-xs-6 col-md-6 wv_subtotal_left textL">
+                                    <b><p>Deduction</p></b>
+                                </div>
+                                <div class="col-xs-6 col-md-6 wv_subtotal_right textR">
+                                    <b><p>-</p></b>
+                                </div>
+                            </div>
+                            <div class="wv_totaling">
+                                <div class="col-xs-6 col-md-6 wv_total_left textL">
+                                    <b><p>Total</p></b>
+                                </div>
+                                <div class="col-xs-6 col-md-6 wv_total_right textR">
+                                    <b><p>Rs {{ cart_total_amount|floatformat:2 }}</p></b>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--//== Total Price Section End ==//-->
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 wv_subtotal">
+                        <!--//== Section Heading Start ==//-->
+                        <div class="left-title">
+                            <h2>Payment method <span class="heading-border"></span></h2>
+                            <div class="clear"></div>
+                        </div>
+                        <!--//== Section Heading End ==//-->
+                        <!--//== Total Price Section Start ==//-->
+                        <div class="wv_shipping">
+                            <div class="wv_subtotaling wv_checkout_subtotal1">
+                                <div class="checkout-payment" id="payment">
+                                    <ul class="payment_methods methods">
+                                        <li>
+                                            <b><span>Choose a method of payment and proceed to make payment</span></b>
+                                        </li>
+                                        <li class="market-info">
+                                            <a class="showlogin" href=""><i class="fa fa-list-alt"></i> Juice or Bank Transfer</a>	
+                                        </li>
+                                        </br>
+                                        <form action="#" method="post" class="login row" id="bankTransferForm" enctype="multipart/form-data">
+                                            <div class="col-md-12">
+                                                <span>If you are paying through Juice or making a transfer, please upload evidence of payment for verification</span>
+                                                </br></br>
+                                                <div class="details">
+                                                    <h2><b>Bank Transfer Details</b></h2>
+                                                    </br>
+                                                    <p>Please make your payment to the following account:</p>
+                                                    <p>Account Name: XYZ Bank</p>
+                                                    <p>Bank Name: ABC Bank</p>
+                                                    <p>Juice: 1234567890</p>
+                                                </div>
+
+                                                <p class="form-row col-sm-6 pd-right">
+                                                    <input type="file" name="paymentEvidence" id="paymentEvidence">
+                                                </p>
+                                            </div>
+                                            
+                                        </form>
+                                        
+                                        <li class="payment_method_cod">
+                                            {% comment %} <input type="radio" value="cod" name="payment_method" class="input-radio" id="payment_method_cod"> {% endcomment %}
+                                            <a class="payment_method_cod"><i class="fa fa-money"> Cash On Delivery </i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <!--//== Total Price Section End ==//-->
+                            <div class="wv_checkout wv_form_field1 responsive_field1">
+                                <button type="submit" id="bank-transfer-modal" class="theme-button col-xs-12 marT0 quickview2-box-btn">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--//== Place Order End ==//-->
+
+{% endblock content %}
