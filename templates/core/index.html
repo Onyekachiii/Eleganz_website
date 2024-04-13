@@ -17,7 +17,7 @@
                                 <h2><span>Smart is the New Sexy</span></h2>
                                 <span>flat 60% off for first 30 Customer.</span>
                                 <p>Quis est tam dissimile homini. Quia dolori non voluptas.</p>
-                                <a href="collection-grid-sidebar.html" class="theme-button wa-theme-bg">Shop Now</a>
+                                <a href="{% url 'core:product-list' %}" class="theme-button wa-theme-bg">Shop Now</a>
                             </div>
                         </figcaption>
                     </figure>
@@ -32,7 +32,7 @@
                                 <h2><span>Being Sexy Is Not A Crime</span></h2>
                                 <span>flat 60% off for first 30 Customer.</span>
                                 <p>Quis est tam dissimile homini. Quia dolori non voluptas.</p>
-                                <a href="collection-grid-sidebar.html" class="theme-button wa-theme-bg">Shop Now</a>
+                                <a href="{% url 'core:product-list' %}" class="theme-button wa-theme-bg">Shop Now</a>
                             </div>
                         </figcaption>
                     </figure>
@@ -47,7 +47,7 @@
                                 <h2><span>Stylish Designs</span></h2>
                                 <span>flat 60% off for first 30 Customer.</span>
                                 <p>Quis est tam dissimile homini. Quia dolori non voluptas.</p>
-                                <a href="collection-grid-sidebar.html" class="theme-button wa-theme-bg">Shop Now</a>
+                                <a href="{% url 'core:product-list' %}" class="theme-button wa-theme-bg">Shop Now</a>
                             </div>
                         </figcaption>
                     </figure>
@@ -62,7 +62,7 @@
                                 <h2><span>Smart is the New Sexy</span></h2>
                                 <span>flat 60% off for first 30 Customer.</span>
                                 <p>Quis est tam dissimile homini. Quia dolori non voluptas.</p>
-                                <a href="collection-grid-sidebar.html" class="theme-button wa-theme-bg">Shop Now</a>
+                                <a href="{% url 'core:product-list' %}" class="theme-button wa-theme-bg">Shop Now</a>
                             </div>
                         </figcaption>
                     </figure>
@@ -77,7 +77,7 @@
                                 <h2><span>Being Sexy Is Not A Crime</span></h2>
                                 <span>flat 60% off for first 30 Customer.</span>
                                 <p>Quis est tam dissimile homini. Quia dolori non voluptas.</p>
-                                <a href="collection-grid-sidebar.html" class="theme-button wa-theme-bg">Shop Now</a>
+                                <a href="{% url 'core:product-list' %}" class="theme-button wa-theme-bg">Shop Now</a>
                             </div>
                         </figcaption>
                     </figure>
@@ -110,7 +110,7 @@
                         <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-0 mix" >
                             <div class="wa-products">
                                 <div class="wa-products-thumbnail wa-item">
-                                    <img src="{{ product.image.url }}" alt="">						
+                                    <img src="{{ product.image.url }}" class="product-image" alt="">						
                                         <div class="caption">
                                         <div class="caption-text">
                                             <ul class="wa-products-icon">
@@ -154,7 +154,9 @@
                 {% endfor %}
                     
                     <div class="clear"></div>
+
                 </div>
+                <a href="{% url 'core:product-list' %}" class="theme-button wa-theme-bg">View more...</a>
             </div>
         </div>
         <!--//=============product End============//-->	
@@ -170,7 +172,7 @@
                             <div class="latest-banners-item">
                                 <div class="wa-banners">
                                     <div class="wa-banners-thumbnail item our-banners-item wa-item">
-                                        <img src="{% static 'assets/img/banners/1.jpg' %}" alt="">
+                                        <img src="{% static 'assets/img/banners/Accessory1.jpg' %}" alt="">
                                         <div class="caption">
                                             <div class="caption-text">
                                                 <div class="clear"></div>
@@ -178,7 +180,7 @@
                                                     <span class="special">Premium Accessories</span>
                                                     <h2>UP TO 20% DISCOUNTS</h2>
                                                     <div class="clear"></div>
-                                                    <a href="collection-grid-fullwidth.html" class="theme-button marT10">view detail</a>
+                                                    <a href="{% url 'core:product-list' %}" class="theme-button marT10">View more...</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,7 +194,7 @@
                             <div class="latest-banners-item">
                                 <div class="wa-banners">
                                     <div class="wa-banners-thumbnail item our-banners-item wa-item">
-                                        <img src="{% static 'assets/img/banners/2.jpg' %}" alt="">
+                                        <img src="{% static 'assets/img/banners/fabric-banner-1.jpg' %}" alt="">
                                         <div class="caption">
                                             <div class="caption-text">
                                                 <div class="clear"></div>
@@ -200,7 +202,7 @@
                                                     <span class="special">Top Quality Fabrics</span>
                                                     <h2>UP TO 20% OFF</h2>
                                                     <div class="clear"></div>
-                                                    <a href="collection-grid-fullwidth.html" class="theme-button marT10">view detail</a>
+                                                    <a href="{% url 'core:product-list' %}" class="theme-button marT10">View more...</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -251,7 +253,9 @@
                     </div>
                     <div class="clear"></div>
                 </div>
+                
             </div>
+            <a href="{% url 'core:gallery' %}" class="theme-button wa-theme-bg">View more...</a>
         </div>
         <!--//============= Gallery End============//-->
 
@@ -278,7 +282,7 @@
                         <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-12 col-xs-offset-0 mix" >
                             <div class="wa-products">
                                 <div class="wa-products-thumbnail wa-item">
-                                    <img src="{{ product.image.url }}" alt="">						
+                                    <img src="{{ product.image.url }}" class="product-image" alt="">						
                                         <div class="caption">
                                         <div class="caption-text">
                                             <ul class="wa-products-icon">
@@ -323,6 +327,7 @@
                     
                     <div class="clear"></div>
                 </div>
+                <a href="{% url 'core:product-list' %}" class="theme-button wa-theme-bg">View more...</a>
             </div>
         </div>
         <!--//=============Accessory product End============//-->	

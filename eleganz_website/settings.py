@@ -142,7 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JAZZMIN_SETTINGS = {
     'site_header': "Eleganz Fabrics",
     'site_brand': "Eleganz Fabrics",
-    'site_logo': "assets/img/favicon.ico",
+    'site_logo': "assets/img/favicon.png",
     'copyright': "eleganzfabrics.mu"
 }
 

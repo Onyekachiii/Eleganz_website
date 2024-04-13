@@ -614,8 +614,8 @@ function owlCarouselInit() {
 
     if (bestSeller.length) {
         bestSeller.owlCarousel({
-            autoPlay: false,
-            items: 4,
+            autoPlay: true,
+            items: 5,
             navigation: true,
             pagination: false,
             itemsDesktop: [1199, 4],

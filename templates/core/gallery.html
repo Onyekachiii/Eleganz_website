@@ -9,7 +9,7 @@
         {% for image in images %}
             <div class="gallery-item">
                 <img src="{{ image.image.url }}" alt="{{ image.title }}">
-                {% comment %} <p>{{ image.title }}</p> {% endcomment %}
+                <p>{{ image.title }}</p>
             </div>
         {% endfor %}
     </div>
