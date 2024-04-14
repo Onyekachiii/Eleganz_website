@@ -1562,8 +1562,8 @@ ul.top-ecommerce-icons li a.closeMenu {
 
 
 .product-image {
-    width: 180px; /* Set the width of the product image */
-    height: 240px; /* Set the height of the product image */
+    width: 150px; /* Set the width of the product image */
+    height: 220px; /* Set the height of the product image */
      /* Maintain aspect ratio and fill container */
 }
 
@@ -4395,5 +4395,23 @@ h1 {
 .footer-style1 .rounded-icon i,
 .footer-style1 .social-style2 a {
     color: #fff;
+}
+
+.check-container {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.check-mark {
+    font-size: 48px;
+    color: white;
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
 }
 

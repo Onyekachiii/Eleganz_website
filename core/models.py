@@ -37,27 +37,27 @@ PRODUCT_TYPES = (
 def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
-class Category(models.Model):
-    cid = ShortUUIDField(unique=True, length=10, max_length=20, prefix='cat_', alphabet="abcdefgh12345678")
-    title = models.CharField(max_length=100, default="Category Title")
-    image = models.ImageField(upload_to='category', blank=True, null=True, default="category.jpg")
+# class Category(models.Model):
+#     cid = ShortUUIDField(unique=True, length=10, max_length=20, prefix='cat_', alphabet="abcdefgh12345678")
+#     title = models.CharField(max_length=100, default="Category Title")
+#     image = models.ImageField(upload_to='category', blank=True, null=True, default="category.jpg")
     
     
-    class Meta:
-        verbose_name_plural = 'Categories'
+#     class Meta:
+#         verbose_name_plural = 'Categories'
         
-    def category_image(self):
-        return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
+#     def category_image(self):
+#         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
     
-    def __str__ (self):
-        return self.title
+#     def __str__ (self):
+#         return self.title
     
 
 class Product(models.Model):
     pid = ShortUUIDField(unique=True, length=10, max_length=20, prefix='prd_', alphabet="abcdefgh12345678")
     
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name="category")
+
     
     title = models.CharField(max_length=100, default="Product Title")
     image = models.ImageField(upload_to='product', blank=True, null=True, default="product.jpg")
@@ -143,23 +143,24 @@ class CartOrderRequest(models.Model):
     phone = models.CharField(max_length=15)
     delivery_address = models.TextField()
     description = models.TextField(default=None, null=True)
+    paymentEvidence = models.FileField(upload_to='payment_evidence/', null=True, blank=True)  # New field
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.first_name} - {self.timestamp}"
     
 
-@receiver(post_save, sender=User)
-def create_cart_order_request(sender, instance, created, **kwargs):
-    if created:
-        CartOrderRequest.objects.create(
-            user=instance,
-            first_name=instance.first_name,
-            last_name=instance.last_name,
-            email=instance.email,
-            phone="",  # You can leave it empty or set a default value
-            address="",  # You can leave it empty or set a default value
-        )
+# @receiver(post_save, sender=User)
+# def create_cart_order_request(sender, instance, created, **kwargs):
+#     if created:
+#         CartOrderRequest.objects.create(
+#             user=instance,
+#             first_name=instance.first_name,
+#             last_name=instance.last_name,
+#             email=instance.email,
+#             phone="",  # You can leave it empty or set a default value
+#             address="",  # You can leave it empty or set a default value
+#         )
     
 
 class ProductReview(models.Model):

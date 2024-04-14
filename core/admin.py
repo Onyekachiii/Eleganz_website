@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import CartOrder, CartOrderProducts, CartOrderRequest, Product, ProductImages, Category, WishList, GalleryImage
+from core.models import CartOrder, CartOrderProducts, CartOrderRequest, Product, ProductImages, WishList, GalleryImage
 from django import forms
 from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -13,11 +13,10 @@ class ProductImagesAdmin(admin.TabularInline):
 
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImagesAdmin]
-    list_display = ['user', 'title', 'product_image', 'product_type', 'price', 'category', 'featured', 'product_status', 'pid']
+    list_display = ['user', 'title', 'product_image', 'product_type', 'price', 'featured', 'product_status', 'pid']
     
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category_image']
-    
+# class CategoryAdmin(admin.ModelAdmin):
+#     list_display = ['title', 'category_image']
     
     
 class CartOrderProductsInline(admin.TabularInline):
@@ -32,7 +31,7 @@ class CartOrderAdmin(admin.ModelAdmin):
     
     
 class CartOrderRequestAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'phone', 'delivery_address', 'description']
+    list_display = ['user', 'email', 'phone', 'delivery_address', 'description', 'paymentEvidence']
 
 
 class WishListAdmin(admin.ModelAdmin):
@@ -45,9 +44,10 @@ class GalleryImageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Category, CategoryAdmin)
+# admin.site.register(Category, CategoryAdmin)
 admin.site.register(CartOrder, CartOrderAdmin)
 admin.site.register(GalleryImage, GalleryImageAdmin)
+
 admin.site.register(CartOrderRequest, CartOrderRequestAdmin)
 
 admin.site.register(WishList, WishListAdmin)

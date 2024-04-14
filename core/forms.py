@@ -16,9 +16,10 @@ class CartOrderRequestForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     phone = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Phone"}))
     delivery_address = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Delivery Address"}))
-    description = forms.CharField(required=False, widget=forms.TextInput(attrs={"placeholder": "Description"}))
+    description = forms.CharField(widget=forms.Textarea(attrs={"placeholder": "Description"}))
+    paymentEvidence = forms.FileField(required=False)
     
     
     class Meta:
         model = CartOrderRequest
-        fields = ['first_name', 'last_name', 'email', 'phone', 'delivery_address', 'description']
+        fields = ['first_name', 'last_name', 'email', 'phone', 'delivery_address', 'description', 'paymentEvidence']

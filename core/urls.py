@@ -1,5 +1,5 @@
 from django.urls import path
-from core.views import about_us, add_to_cart, add_to_wishlist, cart_view, category_list_view, category_product_list_view, checkout_view, delete_item_from_cart, filter_product, get_product_data, index, product_detail_view, product_list_view, remove_from_wishlist, search_view, update_cart, user_dashboard, user_history, wishlist_view, gallery
+from core.views import about_us, add_to_cart, add_to_wishlist, cart_view, checkout_view, delete_item_from_cart, filter_product, get_product_data, index, order_completed_view, product_detail_view, product_list_view, remove_from_wishlist, search_view, update_cart, user_dashboard, user_history, wishlist_view, gallery
 
 
 app_name = "core"
@@ -7,9 +7,9 @@ app_name = "core"
 urlpatterns = [
     path('', index, name='index'),
     
-    # For Categories
-    path('category/', category_list_view, name='category-list'),
-    path('category/<cid>/', category_product_list_view, name='category-product-list'),
+    # # For Categories
+    # path('category/', category_list_view, name='category-list'),
+    # path('category/<cid>/', category_product_list_view, name='category-product-list'),
     
     # For products
     path('products/', product_list_view, name='product-list'),
@@ -39,10 +39,10 @@ urlpatterns = [
     path('add-to-cart/', add_to_cart, name='add-to-cart'),
     
     # checkout url
-    # path('checkout/', checkout_view, name='checkout'),
+    path('checkout/', checkout_view, name='checkout'),
     
     # Order Completed
-    # path('checkout/core/order-completed/', order_completed_view, name='order-completed'),
+    path('checkout/core/order-completed/', order_completed_view, name='order-completed'),
     
     # Cart page URL
     path('cart/', cart_view, name='cart'),

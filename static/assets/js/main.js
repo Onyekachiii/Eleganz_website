@@ -434,58 +434,58 @@ $(document).ready(function() {
     });
 
 
-    // Get the modal
-  var modal = document.getElementById('bankTransferModal');
+//     // Get the modal
+//   var modal = document.getElementById('bankTransferModal');
 
-  // Get the button that opens the modal
-  var btn = document.getElementById("placeOrderButton");
+//   // Get the button that opens the modal
+//   var btn = document.getElementById("placeOrderButton");
 
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
+//   // Get the <span> element that closes the modal
+//   var span = document.getElementsByClassName("close")[0];
 
-  // When the user clicks the button, open the modal 
-  btn.onclick = function() {
-    var paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-    if (paymentMethod === 'cheque') {
-      modal.style.display = "block";
-    } else {
-      document.getElementById("checkoutForm").submit();
-    }
-  }
+//   // When the user clicks the button, open the modal 
+//   btn.onclick = function() {
+//     var paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+//     if (paymentMethod === 'cheque') {
+//       modal.style.display = "block";
+//     } else {
+//       document.getElementById("checkoutForm").submit();
+//     }
+//   }
 
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
+//   // When the user clicks on <span> (x), close the modal
+//   span.onclick = function() {
+//     modal.style.display = "none";
+//   }
 
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
+//   // When the user clicks anywhere outside of the modal, close it
+//   window.onclick = function(event) {
+//     if (event.target == modal) {
+//       modal.style.display = "none";
+//     }
+//   }
 
-  // Handle the "Payment Made" button click
-  document.getElementById("paymentMadeButton").onclick = function() {
-    var formData = new FormData();
-    formData.append('paymentEvidence', document.getElementById('paymentEvidence').files[0]);
+//   // Handle the "Payment Made" button click
+//   document.getElementById("paymentMadeButton").onclick = function() {
+//     var formData = new FormData();
+//     formData.append('paymentEvidence', document.getElementById('paymentEvidence').files[0]);
 
-    fetch('/process_payment/', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        if (response.ok) {
-          window.location.href = '/order-completed/';
-        } else {
-          alert('Failed to submit payment evidence. Please try again.');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to submit payment evidence. Please try again.');
-      });
-  }
+//     fetch('/process_payment/', {
+//         method: 'POST',
+//         body: formData
+//       })
+//       .then(response => {
+//         if (response.ok) {
+//           window.location.href = '/order-completed/';
+//         } else {
+//           alert('Failed to submit payment evidence. Please try again.');
+//         }
+//       })
+//       .catch(error => {
+//         console.error('Error:', error);
+//         alert('Failed to submit payment evidence. Please try again.');
+//       });
+//   }
 
     
 
@@ -498,6 +498,7 @@ function checkoutPageEffect() {
     "use strict";
 
     var showlogin = $('.showlogin');
+    var showlogin2 = $('.showlogin2');
     var loginDiv = $('.login');
     var showcoupon = $('.showcoupon');
     var checkout_coupon = $('.checkout_coupon');
@@ -511,32 +512,44 @@ function checkoutPageEffect() {
     var paymentBoxPaypal = $('.payment_box.payment_method_paypal');
 
 
-    loginDiv.hide();
-    showlogin.on('click', function(e) {
+    var bankTransferForm1 = $('#bankTransferForm1');
+    var bankTransferForm2 = $('#bankTransferForm2');
+
+    bankTransferForm1.hide();
+    bankTransferForm2.hide();
+
+    $('.showlogin').on('click', function(e) {
         e.preventDefault();
-        loginDiv.slideToggle("slow");
+        bankTransferForm1.slideToggle("slow");
+        bankTransferForm2.hide(); // Hide the other form if it's open
     });
 
-    showcoupon.on('click', function(e) {
+    $('.showlogin2').on('click', function(e) {
         e.preventDefault();
-        checkout_coupon.slideToggle("slow");
+        bankTransferForm2.slideToggle("slow");
+        bankTransferForm1.hide(); // Hide the other form if it's open
     });
 
-    differentAddress.change(function() {
-        if (this.checked) {
-            shippingFields.slideToggle('slow');
-        } else {
-            shippingFields.slideToggle('slow');
-        }
-    });
+    // showcoupon.on('click', function(e) {
+    //     e.preventDefault();
+    //     checkout_coupon.slideToggle("slow");
+    // });
 
-    createAccountCheck.change(function() {
-        if (this.checked) {
-            createAccount.slideToggle('slow');
-        } else {
-            createAccount.slideToggle('slow');
-        }
-    });
+    // differentAddress.change(function() {
+    //     if (this.checked) {
+    //         shippingFields.slideToggle('slow');
+    //     } else {
+    //         shippingFields.slideToggle('slow');
+    //     }
+    // });
+
+    // createAccountCheck.change(function() {
+    //     if (this.checked) {
+    //         createAccount.slideToggle('slow');
+    //     } else {
+    //         createAccount.slideToggle('slow');
+    //     }
+    // });
 
 
 }

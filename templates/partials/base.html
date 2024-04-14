@@ -67,9 +67,9 @@
                             </a>
                         </div>
                         <div class="col-md-5 col-sm-5 col-xs-12">
-                            <form class="wa-search-bar marT10">
-                                <input type="text" name="search" placeholder="Search..">
-                                <button type="submit" class="default-btn"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                            <form class="wa-search-bar marT10" method="GET" action="{% url 'core:search' %}">
+                                <input type="text" name="q" placeholder="Search..">
+                                <button type="submit" class="default-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>
                         <div class="col-md-3 col-sm-3 text-center">
@@ -451,9 +451,9 @@
                         </div>
                         <!--//==Section Heading End==//-->
                         <div class="col-md-5 col-sm-5 col-xs-12">
-                            <form class="wa-news-letter marT10 marB10">
+                            <form class="wa-news-letter marT10 marB10" method="GET" action="{% url 'core:search' %}">
                                 <input type="text" name="search" placeholder="Search..">
-                                <button type="submit" class="default-btn"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                <button type="submit" class="default-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
                         </div>
                     </div>

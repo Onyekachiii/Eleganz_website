@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile
-from core.models import CartOrder, CartOrderProducts, Product, ProductImages, Category, ProductReview, WishList, GalleryImage
+from core.models import CartOrder, CartOrderProducts, Product, ProductImages, ProductReview, WishList, GalleryImage
 from core.forms import ProductReviewForm, CartOrderRequestForm
 from django.core import serializers
 from django.contrib import messages
@@ -19,13 +19,13 @@ def index (request):
     fabrics = Product.objects.filter(product_type='fabric')
     accessories = Product.objects.filter(product_type='accessory')
     products = Product.objects.filter(product_status='published', featured=True)
-    categories = Category.objects.all()
+    # categories = Category.objects.all()
     images = GalleryImage.objects.all()
     
     context = {
         "fabrics": fabrics,
         "accessories": accessories,
-        "categories": categories,
+        # "categories": categories,
         "images": images,
         "products": products,
     }
@@ -52,25 +52,6 @@ def product_list_view(request):
     }
     return render(request, 'core/product-list.html', context)
     
-
-def category_list_view(request):
-    categories = Category.objects.all()
-    context = {
-        "categories": categories,
-    }
-    return render(request, 'core/category-list.html', context)
-
-
-# To list productzs in each category
-def category_product_list_view(request, cid):
-    category = Category.objects.get(cid=cid)
-    products = Product.objects.filter(product_status= "published", category=category)
-    
-    context = {
-        "category": category,
-        "products": products,
-    }
-    return render(request, "core/category-product-list.html", context)
 
 
 # To get a product detail
@@ -130,12 +111,9 @@ def search_view(request):
 
 # To filter products by categories & vendors
 def filter_product(request):
-    categories = request.GET.getlist('category[]')
+    # categories = request.GET.getlist('category[]')
     
     products = Product.objects.filter(product_status= "published").order_by("-id").distinct()
-    
-    if len(categories) > 0:
-        products = products.filter(category__id__in=categories).distinct()
     
         
     data = render_to_string("core/async/product-list.html", {"products": products})
@@ -254,6 +232,7 @@ def update_cart(request):
 
 
 # To checkout
+# To checkout
 @login_required
 def checkout_view(request):
     cart_total_amount = 0
@@ -293,7 +272,7 @@ def checkout_view(request):
             )
 
     if request.method == 'POST':
-        form = CartOrderRequestForm(request.POST)
+        form = CartOrderRequestForm(request.POST, request.FILES)
 
         if form.is_valid():
             form.instance.user = request.user
@@ -303,27 +282,33 @@ def checkout_view(request):
             del request.session['cart_data_obj']
 
             messages.success(request, 'Your cart order request has been submitted successfully.')
-            return redirect('core/index')
+            return redirect('core/order-completed')
+        else:
+            # Print form errors for debugging
+            print(form.errors)
 
     else:
         # Get the user's profile
         user_profile = Profile.objects.get(user=request.user)
 
         # Prepopulate form fields with user profile data
-        form_data = {
-            'first_name': user_profile.user.first_name,
-            'last_name': user_profile.user.last_name,
+        form = CartOrderRequestForm(initial={
+            'first_name': user_profile.first_name,
+            'last_name': user_profile.last_name,
             'email': user_profile.user.email,
-            'phone': user_profile.phone,  # Assuming phone is a field in your Profile model
-        }
-
-        # Update the form with the prepopulated data
-        form = CartOrderRequestForm(initial=form_data)
+            'phone': user_profile.phone,
+        })
 
     return render(request, 'core/checkout.html', {'cart_data_obj': cart_data_obj,
                                                    'totalcartitems': len(cart_data_obj),
                                                    'cart_total_amount': cart_total_amount,
                                                    'form': form})
+    
+
+@login_required
+def order_completed_view(request):
+    
+    return render(request, 'core/order-completed.html')
 
 
 # To add to wishlist
