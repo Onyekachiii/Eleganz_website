@@ -372,6 +372,9 @@ def gallery(request):
     images = GalleryImage.objects.all()
     return render(request, 'core/gallery.html', {'images': images})
 
+def about_us(request):
+    return render(request, 'core/about-us.html')
+
 
 
 @login_required

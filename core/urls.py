@@ -7,9 +7,6 @@ app_name = "core"
 urlpatterns = [
     path('', index, name='index'),
     
-    # # For Categories
-    # path('category/', category_list_view, name='category-list'),
-    # path('category/<cid>/', category_product_list_view, name='category-product-list'),
     
     # For products
     path('products/', product_list_view, name='product-list'),
@@ -64,5 +61,6 @@ urlpatterns = [
     
     # Gallery
     path('gallery/', gallery, name='gallery'),
+    
     
 ]

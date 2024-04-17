@@ -85,19 +85,19 @@
 
                                 </li>
                                 <li>
-                                    <a href="{% url 'core:dashboard' %}" class="userIcon">
+                                    {% comment %} <a href="{% url 'core:dashboard' %}" class="userIcon">
                                     <i class="fa fa-user-o" aria-hidden="true"></i>
                                     <sup>User</sup>
-                                    </a>
+                                    </a> {% endcomment %}
                                     <div class="user-menu">
                                         <a class="closeMenu"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                                         <ul class="user-menu-items">
-                                            <li class="clearfix">
+                                            {% comment %} <li class="clearfix">
                                                 <a href="">Account</a>
                                             </li>
                                             <li class="clearfix">
                                                 <a href="">Track Order</a>
-                                            </li>
+                                            </li> {% endcomment %}
                                             <li class="clearfix">
                                                 <a href="">Logout</a>
                                             </li>
@@ -165,7 +165,11 @@
                                             <li>
                                                 <a href="{% url 'core:gallery' %}">Gallery<span class="caret menu-arrow"></span></a> 
                                             </li>
-                                            <li><a href="{% url 'userauths:contact-us' %}">Contact</a></li>
+                                            <li>
+                                                <a href="{% url 'core:about-us' %}">About Us<span class="caret menu-arrow"></span></a> 
+                                            </li>
+                                            <li><a href="{% url 'userauths:contact-us' %}">Contact Us</a></li>
+                                            
                                         </ul>
                                         <!-- /.Right nav  End-->
                                     </div>
@@ -186,19 +190,17 @@
                                                 
                                             </li>
                                             <li>
-                                                <a href="{% url 'core:dashboard' %}" class="userIcon">
+                                                {% comment %} <a href="{% url 'core:dashboard' %}" class="userIcon">
                                                 <i class="fa fa-user-o" aria-hidden="true"></i>
                                                 <sup>User</sup>
-                                                </a>
+                                                </a> {% endcomment %}
                                                 <div class="user-menu">
                                                     <a class="closeMenu"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                                                     <ul class="user-menu-items">
-                                                        <li class="clearfix">
-                                                            <a href="">Account</a>
-                                                        </li>
-                                                        <li class="clearfix">
-                                                            <a href="">Track Order</a>
-                                                        </li>
+                                                        {% comment %} <li class="clearfix">
+                                                            <a href="{% url 'core:dashboard' %}">Account</a>
+                                                        </li> {% endcomment %}
+                                                        
                                                         <li class="clearfix">
                                                             <a href="">Logout</a>
                                                         </li>
@@ -375,18 +377,18 @@
                             <div class="widget">
                                 <h4>Information</h4>
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> Products</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> Advanced Search</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> Site Map</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> FAQ</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> Location</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> Terms &amp; Condition</a></li>
-                                    <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> Privacy Policy</a></li>
+                                    <li><a href="{% url 'core:product-list' %}"><i class="fa fa-angle-double-right wv_circle"></i> Products</a></li>
+                            
+                                    
+                                    <li><a href="{% url 'core:about-us' %}"><i class="fa fa-angle-double-right wv_circle"></i> About Us</a></li>
+                                    <li><a href="{% url 'userauths:contact-us' %}"><i class="fa fa-angle-double-right wv_circle"></i> Location</a></li>
+                                    <li><a href="{% url 'userauths:contact-us' %}"><i class="fa fa-angle-double-right wv_circle"></i> Contact Us</a></li>
+                                    <li><a href="{% url 'core:cart' %}"><i class="fa fa-angle-double-right wv_circle"></i> Cart</a></li>
                                 </ul>
                             </div>
                         </div>
                         <!--Widget Block-->
-                        <div class="col-md-3 col-sm-6">
+                        {% comment %} <div class="col-md-3 col-sm-6">
                             <div class="widget">
                                 <h4>Category</h4>
                                 <ul>
@@ -399,7 +401,7 @@
                                     <li><a href="#"><i class="fa fa-angle-double-right wv_circle"></i> Privacy Policy</a></li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                         <!--Widget Block-->
                         <div class="col-md-3 col-sm-6">
                             <div class="widget">
@@ -438,7 +440,7 @@
                 </div>
             </div>
             <!--//=============Newsletter Start============//-->
-            <div class="newsletter">
+            {% comment %} <div class="newsletter">
                 <div class="container">
                     <div class="padTB30 row">
                         <!--//==Section Heading Start==//-->
@@ -458,7 +460,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> {% endcomment %}
             <!--//=============Newsletter End============//-->           
             <!--Copyright Footer Block-->
             <div class="bottom-footer">

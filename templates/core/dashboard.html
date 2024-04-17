@@ -32,8 +32,8 @@
         <a href="" class="simple-text logo-mini">
           
         </a>
-        <a href="" class="simple-text logo-normal">
-          Your Logo
+        <a href="{% url 'core:index' %}" class="simple-text logo-normal">
+          <img class="site_logo" alt="Site Logo"  src="{% static 'assets/img/eleganzlogo1.png' %}" />
           
         </a>
       </div>
@@ -52,12 +52,6 @@
             </a>
           </li>
           
-          <li>
-            <a href="javascript:;">
-              <i class="nc-icon nc-spaceship"></i>
-              <p>Checkout</p>
-            </a>
-          </li>
           
           <li>
             <a href="{% url 'userauths:sign-out' %}">
