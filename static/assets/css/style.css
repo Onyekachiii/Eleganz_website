@@ -1562,8 +1562,8 @@ ul.top-ecommerce-icons li a.closeMenu {
 
 
 .product-image {
-    width: 160px; /* Set the width of the product image */
-    height: 240px; /* Set the height of the product image */
+    width: 150px; /* Set the width of the product image */
+    height: 220px; /* Set the height of the product image */
      /* Maintain aspect ratio and fill container */
 }
 

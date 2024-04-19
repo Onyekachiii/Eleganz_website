@@ -21,7 +21,7 @@ class ProductAdmin(admin.ModelAdmin):
     
 class CartOrderProductsInline(admin.TabularInline):
     model = CartOrderProducts
-    extra = 1
+    extra = 0
     list_display = ['cart_invoice_no', 'item', 'image', 'qty', 'price', 'total']
     
 

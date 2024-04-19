@@ -84,9 +84,7 @@ def edit_profile(request):
         profile.house_address = request.POST.get('house_address')
         profile.city = request.POST.get('city')
         profile.country = request.POST.get('country')
-        if 'image' in request.FILES:
-            profile.image = request.FILES['image']
-        profile.save()
+       
         return redirect('core:dashboard')  # Redirect to dashboard after saving
         
     context = {

@@ -85,21 +85,25 @@
 
                                 </li>
                                 <li>
-                                    {% comment %} <a href="{% url 'core:dashboard' %}" class="userIcon">
+                                     <a class="userIcon">
                                     <i class="fa fa-user-o" aria-hidden="true"></i>
                                     <sup>User</sup>
-                                    </a> {% endcomment %}
+                                    </a> 
                                     <div class="user-menu">
                                         <a class="closeMenu"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                                         <ul class="user-menu-items">
-                                            {% comment %} <li class="clearfix">
-                                                <a href="">Account</a>
+                                            <li>
+                                                <a href="{% url 'core:dashboard' %}">User Dashboard</a>
                                             </li>
+                                            <li>
+                                                <a href="{% url 'core:user-history' %}">User History</a>
+                                            </li> 
                                             <li class="clearfix">
-                                                <a href="">Track Order</a>
-                                            </li> {% endcomment %}
-                                            <li class="clearfix">
-                                                <a href="">Logout</a>
+                                                {% if request.user.is_authenticated %}
+                                                    <li><a href="{% url 'userauths:sign-out' %}">Sign-out</a></li>
+                                                {% else %}
+                                                    <li><a href="{% url 'userauths:sign-in' %}">Login</a></li>
+                                                {% endif %}
                                             </li>
                                         </ul>
                                     </div>
@@ -111,9 +115,6 @@
                                         <i class="fa fa-shopping-basket cart-items-count" aria-hidden="true"></i>
                                         <sup>{{ request.session.cart_data_obj|length }}</sup>
                                     </a>
-
-                                    
-
                                 </li>
                             </ul>
                         </div>
@@ -150,9 +151,10 @@
                                             </li>
                                             
                                             <li>
-                                                <a href="#">Pages <span class="caret menu-arrow"></span><span class="sub-arrow">...</span></a>
+                                                <a >Pages <span class="caret menu-arrow"></span><span class="sub-arrow">...</span></a>
                                                 <ul class="dropdown-menu">
-                                                    <li><a href="FAQ.html">FAQs</a></li>
+                                                    <li><a href="FAQ.html">User Details</a></li>
+                                                    <li><a href="FAQ.html">User History</a></li>
                                                     {% if request.user.is_authenticated %}
                                                     <li><a href="{% url 'userauths:sign-out' %}">Sign-out</a></li>
                                                     {% else %}
@@ -190,19 +192,25 @@
                                                 
                                             </li>
                                             <li>
-                                                {% comment %} <a href="{% url 'core:dashboard' %}" class="userIcon">
+                                                <a class="userIcon">
                                                 <i class="fa fa-user-o" aria-hidden="true"></i>
                                                 <sup>User</sup>
-                                                </a> {% endcomment %}
+                                                </a> 
                                                 <div class="user-menu">
                                                     <a class="closeMenu"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
                                                     <ul class="user-menu-items">
-                                                        {% comment %} <li class="clearfix">
-                                                            <a href="{% url 'core:dashboard' %}">Account</a>
-                                                        </li> {% endcomment %}
-                                                        
+                                                        <li>
+                                                            <a href="{% url 'core:dashboard' %}">User Details</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="{% url 'core:user-history' %}">User History</a>
+                                                        </li> 
                                                         <li class="clearfix">
-                                                            <a href="">Logout</a>
+                                                            {% if request.user.is_authenticated %}
+                                                                <li><a href="{% url 'userauths:sign-out' %}">Sign-out</a></li>
+                                                            {% else %}
+                                                                <li><a href="{% url 'userauths:sign-in' %}">Login</a></li>
+                                                            {% endif %}
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -383,6 +391,7 @@
                                     <li><a href="{% url 'core:about-us' %}"><i class="fa fa-angle-double-right wv_circle"></i> About Us</a></li>
                                     <li><a href="{% url 'userauths:contact-us' %}"><i class="fa fa-angle-double-right wv_circle"></i> Location</a></li>
                                     <li><a href="{% url 'userauths:contact-us' %}"><i class="fa fa-angle-double-right wv_circle"></i> Contact Us</a></li>
+                                    <li><a href="{% url 'core:user-history' %}"><i class="fa fa-angle-double-right wv_circle"></i> User History</a></li>
                                     <li><a href="{% url 'core:cart' %}"><i class="fa fa-angle-double-right wv_circle"></i> Cart</a></li>
                                 </ul>
                             </div>

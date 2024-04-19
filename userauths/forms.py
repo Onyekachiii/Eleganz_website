@@ -35,4 +35,4 @@ class ContactFormForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['first_name', 'last_name', 'bio', 'phone', 'house_address', 'city', 'country', 'image']
+        fields = ['first_name', 'last_name', 'bio', 'phone', 'house_address', 'city', 'country']

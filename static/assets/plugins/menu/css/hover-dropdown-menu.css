@@ -1018,7 +1018,7 @@ header .navbar-collapse{
 	}
 	/* Dark Header */
 	.dark-header .navbar{
-		background-color: #222;
+		background-color: #4d4d4d;
 	}
 	.dark-header .navbar-default .navbar-nav > li > a{
 		color: #fff;

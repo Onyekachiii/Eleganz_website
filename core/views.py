@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile
-from core.models import CartOrder, CartOrderProducts, Product, ProductImages, ProductReview, WishList, GalleryImage
+from core.models import CartOrder, CartOrderProducts, Product, ProductReview, ProductImages, WishList, GalleryImage
 from core.forms import ProductReviewForm, CartOrderRequestForm
 from django.core import serializers
 from django.contrib import messages
@@ -156,8 +156,9 @@ def add_to_cart(request):
     return JsonResponse({"data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})
 
 
-# To list products in cart
 def clean_price_string(price_string):
+    # Remove commas from the price string
+    price_string = price_string.replace(',', '')
     return ''.join(char for char in price_string if char.isdigit() or char == '.')
 
 @login_required
@@ -171,7 +172,8 @@ def cart_view(request):
                 cleaned_price_string = clean_price_string(item['price'])
 
                 try:
-                    cart_total_amount += int(item['qty']) * float(cleaned_price_string)
+                    item['total_price'] = int(item['qty']) * float(cleaned_price_string)
+                    cart_total_amount += item['total_price']
                 except ValueError:
                     messages.error(request, f"Invalid price format for item {p_id}. Please check your cart.")
                     return redirect('core:index')
@@ -179,20 +181,17 @@ def cart_view(request):
         return render(request, 'core/cart.html', {"cart_data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     else:
         messages.warning(request, "Your cart is empty")
-        # Redirect to the login page if the user is not authenticated
-        return redirect('userauths:sign-in')
+        return redirect('core:index')  
+
     
     
-# To delete item from cart
 @login_required
 def delete_item_from_cart(request):
     product_id = str(request.GET['id'])
     if 'cart_data_obj' in request.session:
         if product_id in request.session['cart_data_obj']:
-            cart_data = request.session['cart_data_obj']
             del request.session['cart_data_obj'][product_id]
-            request.session['cart_data_obj'] = cart_data
-            
+    
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for product_id, item in request.session['cart_data_obj'].items():
@@ -210,7 +209,6 @@ def delete_item_from_cart(request):
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
 
 
-# To update cart
 @login_required
 def update_cart(request):
     product_id = str(request.GET['id'])
@@ -218,21 +216,19 @@ def update_cart(request):
     
     if 'cart_data_obj' in request.session:
         if product_id in request.session['cart_data_obj']:
-            cart_data = request.session['cart_data_obj']
-            cart_data[str(request.GET['id'])]['qty'] = product_qty
-            request.session['cart_data_obj'] = cart_data
-            
+            request.session['cart_data_obj'][str(request.GET['id'])]['qty'] = product_qty
+    
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for product_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price']) 
+            cart_total_amount += int(item['qty']) * float(clean_price_string(item['price'])) 
     
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
 
 
-# To checkout
-# To checkout
+
+
 @login_required
 def checkout_view(request):
     cart_total_amount = 0
@@ -249,7 +245,9 @@ def checkout_view(request):
         
     if cart_data_obj:
         for product_id, item in cart_data_obj.items():
-            total_amount += int(item['qty']) * float(item['price'])
+            # Clean and format the price string to handle commas
+            cleaned_price_string= clean_price_string(item['price'])
+            total_amount += int(item['qty']) * float(cleaned_price_string)
 
         # Creating order objects
         order = CartOrder.objects.create(
@@ -259,7 +257,7 @@ def checkout_view(request):
 
         # Getting total amount for the cart
         for product_id, item in cart_data_obj.items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
+            cart_total_amount += int(item['qty']) * float(clean_price_string(item['price']))
 
             cart_order_products = CartOrderProducts.objects.create(
                 order=order,
@@ -267,8 +265,8 @@ def checkout_view(request):
                 item=item['title'],
                 image=item['image'],
                 qty=item['qty'],
-                price=item['price'],
-                total=float(item['qty']) * float(item['price']),
+                price=clean_price_string(item['price']),
+                total=float(item['qty']) * float(clean_price_string(item['price'])),
             )
 
     if request.method == 'POST':
@@ -392,7 +390,7 @@ def user_dashboard(request):
 
 @login_required
 def user_history(request):
-    orders = CartOrderProducts.objects.filter(order__user=request.user).order_by("-id")
+    orders = CartOrder.objects.filter(user=request.user).order_by('-order_date')
     context = {
         "orders": orders,
     }
