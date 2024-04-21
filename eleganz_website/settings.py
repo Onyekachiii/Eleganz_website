@@ -151,3 +151,17 @@ AUTH_USER_MODEL = 'userauths.User'
 LOGIN_URL = 'userauths:sign-in'
 
 USE_THOUSAND_SEPARATOR = True
+
+
+
+EMAIL_FROM_USER = 'stanleyonyekachiii@yahoo.com'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'alerts.eleganzfabrics@gmail.com'
+EMAIL_HOST_PASSWORD = 'tswy ufdi clft icrb'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEBUG_EMAIL = False
+
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'

@@ -6,6 +6,13 @@ from userauths.models import User, Profile
 from django.contrib.auth.decorators import login_required
 
 
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
+
+
 def register_view(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST or None)
@@ -62,7 +69,21 @@ def contact_us(request):
         form = ContactFormForm(request.POST)
         if form.is_valid():
             # Save the form data to the database
-            form.save()
+            contact_us_instance = form.save(commit=False)
+            contact_us_instance.user = request.user  # Assuming you have a user field in your ContactFormForm
+            contact_us_instance.save()
+            
+            # Send email to admin
+            subject = 'New message from "Contact Us"'
+            user_name = form.cleaned_data.get('full_name')
+            user_phone = form.cleaned_data.get('phone')
+            user_email = form.cleaned_data.get('email')
+            message = render_to_string('email/contact_us_request_email.html', {'contact_us': contact_us, 'user_name': user_name, 'user_phone': user_phone, 'user_email': user_email})
+            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
+            from_email = 'alerts.eleganzfabrics@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
             
             messages.success(request, f"Thank you for contacting us, we will get back to you shortly!")   

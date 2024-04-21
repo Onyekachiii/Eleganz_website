@@ -66,7 +66,7 @@ class Product(models.Model):
     product_type = models.CharField(choices=PRODUCT_TYPES, max_length=20, default='fabric')
     
     price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
-    old_price = models.DecimalField(max_digits=10, decimal_places=2, default=2.99, null=True, blank=True)
+    # old_price = models.DecimalField(max_digits=10, decimal_places=2, default=2.99, null=True, blank=True)
 
     
     product_status = models.CharField(choices=STATUS, max_length=20, default="in_review")
@@ -89,9 +89,9 @@ class Product(models.Model):
     def __str__ (self):
         return self.title
     
-    def get_percentage(self):
-        new_price = (self.old_price - self.price) / self.old_price * 100
-        return new_price
+    # def get_percentage(self):
+    #     new_price = (self.old_price - self.price) / self.old_price * 100
+    #     return new_price
     
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, related_name="product_images", on_delete=models.SET_NULL, null=True)

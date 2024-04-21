@@ -1,0 +1,11 @@
+<p>Payment Confirmation</p>
+
+
+<p>Username: {{ profile.user.username }}</p>
+
+<p>User Email: {{ profile.user.email }}</p>
+
+<p>Phone Number: {{ profile.phone }}</p>
+
+<p>Amount: Rs {{ cart_total_amount }}</p>
+

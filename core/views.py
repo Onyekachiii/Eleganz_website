@@ -13,6 +13,13 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 
 
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.utils.html import strip_tags
+
+
+
 # Create your views here.
 
 def index (request):
@@ -227,8 +234,6 @@ def update_cart(request):
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
 
 
-
-
 @login_required
 def checkout_view(request):
     cart_total_amount = 0
@@ -246,7 +251,7 @@ def checkout_view(request):
     if cart_data_obj:
         for product_id, item in cart_data_obj.items():
             # Clean and format the price string to handle commas
-            cleaned_price_string= clean_price_string(item['price'])
+            cleaned_price_string = clean_price_string(item['price'])
             total_amount += int(item['qty']) * float(cleaned_price_string)
 
         # Creating order objects
@@ -265,8 +270,8 @@ def checkout_view(request):
                 item=item['title'],
                 image=item['image'],
                 qty=item['qty'],
-                price=clean_price_string(item['price']),
-                total=float(item['qty']) * float(clean_price_string(item['price'])),
+                price=cleaned_price_string,
+                total=float(item['qty']) * float(cleaned_price_string),
             )
 
     if request.method == 'POST':
@@ -278,9 +283,18 @@ def checkout_view(request):
 
             # Clear the cart_data_obj from the session after processing
             del request.session['cart_data_obj']
+            
+            subject = 'Payment Confirmation'
+            user_name = request.user.username
+            message = render_to_string('email/payment_made_admin_notification.txt', {'user_name': user_name, 'profile': request.user.profile, 'cart_total_amount': cart_total_amount})
+            plain_message = strip_tags(message)
+            from_email = 'alerts.eleganzfabrics@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
             messages.success(request, 'Your cart order request has been submitted successfully.')
-            return redirect('core/order-completed')
+            return redirect('core:order-completed')
         else:
             # Print form errors for debugging
             print(form.errors)
